@@ -15,15 +15,16 @@ class CreateClientAssetsTable extends Migration
     {
         Schema::create('client_assets', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
             $table->unsignedBigInteger('employee_id')->nullable();
+            $table->unsignedBigInteger('maintenance_request_id');
             $table->string('issue');
             $table->date('delivery_date');
 
 
 
             $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('maintenance_request_id')->references('id')->on('maintenance_requests');
 
 
 

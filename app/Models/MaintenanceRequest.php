@@ -35,6 +35,13 @@ class MaintenanceRequest extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
