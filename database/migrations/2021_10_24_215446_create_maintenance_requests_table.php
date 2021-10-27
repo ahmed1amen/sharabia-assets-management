@@ -18,8 +18,9 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->unsignedBigInteger('client_id')->nullable();
             $table->decimal('total')->default(0);
             $table->decimal('total_paid')->default(0);
-            $table->decimal('amount_due')->default(0);
+            $table->decimal('amount_due')->storedAs('total-total_paid');
             $table->foreign('client_id')->references('id')->on('clients');
+
             $table->timestamps();
         });
     }

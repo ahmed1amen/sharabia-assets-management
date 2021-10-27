@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MaintenanceRequestRequest;
+use App\Models\MaintenanceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -56,7 +57,6 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::column('amount_due');
 
 
-
         CRUD::column('created_at');
 
         /**
@@ -78,38 +78,38 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::field('client_id');
         CRUD::field('total');
         CRUD::field('total_paid');
-        $this->crud->addField([
-            'name'  => 'assets',
-            'label' => 'Assets',
-            'type'  => 'repeatable',
-            'fields' => [
+        CRUD::field('assets_list')
+            ->type('repeatable')
+            ->label('Assets')
+            ->fields([
+
                 [
-                    'name'    => 'name',
-                    'type'    => 'text',
-                    'label'   => 'Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'label' => 'Name',
                     'wrapper' => ['class' => 'form-group col-md-4'],
                 ],
                 [
-                    'name'    => 'issue',
-                    'type'    => 'text',
-                    'label'   => 'issue',
+                    'name' => 'issue',
+                    'type' => 'text',
+                    'label' => 'issue',
                     'wrapper' => ['class' => 'form-group col-md-4'],
                 ],
-                [
-                    'name'    => 'deliver_date',
-                    'type'  => 'date',
-                    'label'   => 'Deliver Date',
+                [   // date_picker
+                    'name' => 'delivery_date',
+                    'type' => 'date_picker',
+                    'label' => 'Deliver Date',
+                    'date_picker_options' => [
+                        'todayBtn' => 'linked',
+                        'format' => 'dd-mm-yyyy',
+                        'language' => 'en'
+                    ],
                     'wrapper' => ['class' => 'form-group col-md-4'],
                 ],
 
-            ],
 
-            // optional
-            'new_item_label'  => 'Add Group', // customize the text of the button
-            'init_rows' => 1, // number of empty rows to be initialized, by default 1
+            ]);
 
-
-        ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -127,4 +127,38 @@ class MaintenanceRequestCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    /**
+     * Store a newly created resource in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store()
+    {
+
+        $this->crud->hasAccessOrFail('create');
+
+        // execute the FormRequest authorization and validation, if one is required
+        $request = $this->crud->validateRequest();
+
+
+        $items = json_decode(request('assets_list'), true);
+
+        // insert item in the db
+        $item = $this->crud->create($this->crud->getStrippedSaveRequest());
+        $this->data['entry'] = $this->crud->entry = $item;
+
+        // associate the client assets to the maintenance request
+        $item->assets()->createMany($items);
+
+
+        // show a success message
+        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        // save the redirect choice for next time
+        $this->crud->setSaveAction();
+
+        return $this->crud->performSaveAction($item->getKey());
+    }
+
 }

@@ -34,7 +34,10 @@ class ClientAsset extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function maintenanceRequest(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(MaintenanceRequest::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
