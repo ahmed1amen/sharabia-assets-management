@@ -30,6 +30,8 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setModel(\App\Models\MaintenanceRequest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
         CRUD::setEntityNameStrings('maintenance request', 'maintenance requests');
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+
     }
 
     /**
@@ -78,7 +80,7 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::field('client_id');
         CRUD::field('total');
         CRUD::field('total_paid');
-        CRUD::field('assets_list')
+        CRUD::field('assets')
             ->type('repeatable')
             ->label('Assets')
             ->fields([
@@ -142,7 +144,7 @@ class MaintenanceRequestCrudController extends CrudController
         $request = $this->crud->validateRequest();
 
 
-        $items = json_decode(request('assets_list'), true);
+        $items = json_decode(request('assets'), true);
 
         // insert item in the db
         $item = $this->crud->create($this->crud->getStrippedSaveRequest());
@@ -161,4 +163,34 @@ class MaintenanceRequestCrudController extends CrudController
         return $this->crud->performSaveAction($item->getKey());
     }
 
+
+    /**
+     * Update the specified resource in the database.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update()
+    {
+        $this->crud->hasAccessOrFail('update');
+        /***
+         * @var $item \App\Models\MaintenanceRequest
+         */
+
+// execute the FormRequest authorization and validation, if one is required
+        $request = $this->crud->validateRequest();
+        // update the row in the db
+        $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
+            $this->crud->getStrippedSaveRequest());
+        $this->data['entry'] = $this->crud->entry = $item;
+
+        $item->assets()->delete();
+        $item->assets()->createMany(json_decode($this->crud->getStrippedSaveRequest()['assets'] ,true));
+        // show a success message
+        \Alert::success(trans('backpack::crud.update_success'))->flash();
+
+        // save the redirect choice for next time
+        $this->crud->setSaveAction();
+
+        return $this->crud->performSaveAction($item->getKey());
+    }
 }
