@@ -31,6 +31,7 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
         CRUD::setEntityNameStrings('maintenance request', 'maintenance requests');
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+        $this->crud->setShowView('crud.maintenance_request.hello');
 
     }
 
@@ -42,6 +43,7 @@ class MaintenanceRequestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
 
         CRUD::column('id')->label('#');
         $this->crud->addColumn(
@@ -57,8 +59,6 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::column('total');
         CRUD::column('total_paid');
         CRUD::column('amount_due');
-
-
         CRUD::column('created_at');
 
         /**
@@ -76,6 +76,25 @@ class MaintenanceRequestCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        $this->crud->addSaveAction([
+            'name' => 'save_action_one',
+            'redirect' => function ($crud, $request, $itemId) {
+                return $crud->route;
+            }, // what's the redirect URL, where the user will be taken after saving?
+
+            // OPTIONAL:
+            'button_text' => 'Save And View', // override text appearing on the button
+            // You can also provide translatable texts, for example:
+            // 'button_text' => trans('backpack::crud.save_action_one'),
+            'visible' => function ($crud) {
+                return true;
+            }, // customize when this save action is visible for the current operation
+            'referrer_url' => function ($crud, $request, $itemId) {
+                return $crud->route;
+            }, // override http_referrer_url
+            'order' => 1, // change the order save actions are in
+        ]);
+
         CRUD::setValidation(MaintenanceRequestRequest::class);
         CRUD::field('client_id');
         CRUD::field('total');
@@ -184,7 +203,7 @@ class MaintenanceRequestCrudController extends CrudController
         $this->data['entry'] = $this->crud->entry = $item;
 
         $item->assets()->delete();
-        $item->assets()->createMany(json_decode($this->crud->getStrippedSaveRequest()['assets'] ,true));
+        $item->assets()->createMany(json_decode($this->crud->getStrippedSaveRequest()['assets'], true));
         // show a success message
         \Alert::success(trans('backpack::crud.update_success'))->flash();
 
