@@ -18,4 +18,5 @@ Route::group([
     Route::crud('client-asset', 'ClientAssetCrudController');
     Route::crud('maintenance-request', 'MaintenanceRequestCrudController');
     Route::crud('employee', 'EmployeeCrudController');
+    Route::crud('setting', 'SettingCrudController');
 }); // this should be the absolute last line of this file

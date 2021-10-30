@@ -25,31 +25,31 @@
             margin: 0mm;
         }
 
-        td,
-        th,
-        tr,
-        table {
+        .table-invoice td,
+        .table-invoice th,
+        .table-invoice tr,
+        .table-invoice {
             border: 1px solid black;
             border-collapse: inherit;
             font-size: 10px;
             font-weight: 800
         }
 
-        td.description,
-        th.description {
+        .table-invoice   td.description,
+        .table-invoice     th.description {
             width: 75px;
             max-width: 75px;
         }
 
-        td.quantity,
-        th.quantity {
+        .table-invoice    td.quantity,
+        .table-invoice   th.quantity {
             width: 60px;
             max-width: 60px;
             word-break: break-all;
         }
 
-        td.price,
-        th.price {
+        .table-invoice   td.price,
+        .table-invoice  th.price {
             width: 60px;
             max-width: 60px;
             word-break: break-all;
@@ -88,51 +88,71 @@
             }
         }
 
-        .qrcode {
 
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-        }
 
     </style>
 </head>
 <body>
 
 <div class="ticket">
+    <table>
+        <thead>
+        <tr>
+            <th>   {!!   DNS2D::getBarcodeHTML('4445645656', 'QRCODE',3,3)!!}</th>
+            <th>
+                <img style="width: 100%;" src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+            </th>
+        </tr>
+        </thead>
 
-    <h1 class="centered" style="font-size: 22px;border: 5px solid;border-collapse: inherit; ">شرابية ستور</h1>
+        <tbody>
+        <tr>
+            <td class="centered" colspan="2">
+
+
+                <p style="font-size: 10px; font-weight: lighter">
+                    #54545  -     Monday, October 17, 2021  4:30 PM
+
+                </p>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+    <h1 class="centered" style="font-size: 22px;border: 5px solid;border-collapse: inherit; ">Shrabia Store</h1>
     <h5 class="centered" style="font-size: 10px;    border-bottom: 2px solid; "> موبيل : 01066104107</h5>
-    <div class="qrcode" style="font-size: 10px;font-weight: 800; ">
 
-        {!!   DNS2D::getBarcodeHTML('4445645656', 'QRCODE',3,3)!!}
 
-    </div>
     <p class="centered" style="font-size: 10px;font-weight: 800; ">
-        #11111111111
-        <br>
-        15-20-2020
-        <br>
         اسم العميل : ayman hesham
     </p>
 
 
-    <table style="direction: rtl;">
+    <table class="table-invoice" style="direction: rtl;">
         <thead>
         <tr>
-            <th style="max-width: 200px; width: 200px; text-align: center;">الصنف</th>
-            <th>السعر</th>
-            <th>الكميه</th>
-            <th>القيمه</th>
+            <th style="max-width: 200px; width: 200px; text-align: center;">النوع</th>
+            <th>العطل</th>
+            <th>تاريخ الإستلام</th>
+
         </tr>
         </thead>
         <tbody>
 
         <tr>
             <td style="max-width: 200px; width: 200px; text-align: center">test</td>
-            <td class="centered">test</td>
-            <td class="centered">test</td>
-            <td class="centered">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center"  class="centered">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center" class="centered">test</td>
+
+        </tr>
+        <tr>
+            <td style="max-width: 200px; width: 200px; text-align: center">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center"  class="centered">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center" class="centered">test</td>
+
         </tr>
 
 
@@ -140,16 +160,13 @@
     </table>
 
     <p class="centered" style="font-size: 10px; border-top: 1px solid; font-weight: 900;">
-        موعد الإستلام
-        <br style="border-bottom: 1px solid">
+
     </p>
 
     <p class="centered" style="font-size: 10px; border-top: 1px solid; font-weight: 900;">
 
 
-        الاجمالي: 100
-        <br>
-        المدفوع: 100
+        الاجمالي: 100 --   المدفوع: 100
         <br>
         المتبقي: 100
         <br>
