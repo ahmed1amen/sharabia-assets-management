@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class MaintenanceRequest extends Model
@@ -65,6 +66,15 @@ class MaintenanceRequest extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('l d-m-Y - h:i:s A');
+    }
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------

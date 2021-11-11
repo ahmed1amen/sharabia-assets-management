@@ -6,6 +6,7 @@ use App\Http\Requests\MaintenanceRequestRequest;
 use App\Models\MaintenanceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Arr;
 
 /**
  * Class MaintenanceRequestCrudController
@@ -97,8 +98,15 @@ class MaintenanceRequestCrudController extends CrudController
 
         CRUD::setValidation(MaintenanceRequestRequest::class);
         CRUD::field('client_id');
-        CRUD::field('total');
-        CRUD::field('total_paid');
+        $this->crud->addField(
+            [
+                'name' => 'total_paid',
+                'type' => 'number',
+                'label' => 'Total Paid',
+                'attributes' => ["step" => "any", 'min' => 0 ],
+                'default' => '0',
+            ]
+         );
         CRUD::field('assets')
             ->type('repeatable')
             ->label('Assets')
@@ -108,13 +116,21 @@ class MaintenanceRequestCrudController extends CrudController
                     'name' => 'name',
                     'type' => 'text',
                     'label' => 'Name',
-                    'wrapper' => ['class' => 'form-group col-md-4'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [
                     'name' => 'issue',
                     'type' => 'text',
                     'label' => 'issue',
-                    'wrapper' => ['class' => 'form-group col-md-4'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+                [
+                    'name' => 'cost',
+                    'type' => 'number',
+                    'label' => 'Cost',
+                    'default' => '0',
+                    'attributes' => ["step" => "any", 'min' => 0 ],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [   // date_picker
                     'name' => 'delivery_date',
@@ -125,7 +141,7 @@ class MaintenanceRequestCrudController extends CrudController
                         'format' => 'dd-mm-yyyy',
                         'language' => 'en'
                     ],
-                    'wrapper' => ['class' => 'form-group col-md-4'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
 
 
@@ -164,9 +180,13 @@ class MaintenanceRequestCrudController extends CrudController
 
 
         $items = json_decode(request('assets'), true);
+        $request_data = $this->crud->getStrippedSaveRequest();
+
+        //Get Request Data And Pluck The Item to calculate The Total Cost
+        $request_data['total'] =  array_sum(Arr::pluck($items,'cost'));
 
         // insert item in the db
-        $item = $this->crud->create($this->crud->getStrippedSaveRequest());
+        $item = $this->crud->create( $request_data);
         $this->data['entry'] = $this->crud->entry = $item;
 
         // associate the client assets to the maintenance request
@@ -197,9 +217,14 @@ class MaintenanceRequestCrudController extends CrudController
 
 // execute the FormRequest authorization and validation, if one is required
         $request = $this->crud->validateRequest();
+
+        $request_data = $this->crud->getStrippedSaveRequest();
+        //Get Request Data And Pluck The Item to calculate The Total Cost
+        $request_data['total'] =  array_sum(Arr::pluck(json_decode($this->crud->getStrippedSaveRequest()['assets'],true),'cost'));
+
         // update the row in the db
         $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
-            $this->crud->getStrippedSaveRequest());
+            $request_data);
         $this->data['entry'] = $this->crud->entry = $item;
 
         $item->assets()->delete();

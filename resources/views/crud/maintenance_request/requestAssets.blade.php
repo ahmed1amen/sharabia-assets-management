@@ -1,88 +1,51 @@
-
-<!-- Printable area start -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Print Invoice</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="http://bhojon.test/application/modules/ordermanage/assets/css/pos_token.css">
-    <link rel="stylesheet" type="text/css" href="http://bhojon.test/application/modules/ordermanage/assets/css/pos_print.css">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Assets Sticker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style type="text/css">
-        @page
-        {
+        @page {
             size: auto;   /* auto is the initial value */
-
             /* this affects the margin in the printer settings */
             margin: 0mm 0 0mm 0;
         }
 
-        body
-        {
+        body {
+            font-family: 'Cairo', sans-serif;
+
+            direction: rtl;
             /* this affects the margin on the content before sending to printer */
             margin: 0px;
         }
+
         @media screen {
             .header, .footer {
                 display: none;
             }
         }
-        .mb-0 {
-            margin-bottom: 0;
+
+        .table > :not(caption) > * > * {
+            padding: 0;
+            border-bottom-width: 0;
         }
 
-        .my-50 {
-            margin-top: 50px;
-            margin-bottom: 50px;
+        table {
+            font-size: 9px;
+            font-weight: bold;
         }
-
-        .my-0 {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-
-        .my-5 {
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .mt-10 {
-            margin-top: 10px;
-        }
-
-        .mb-15 {
-            margin-bottom: 15px;
-        }
-
-        .mr-18 {
-            margin-right: 18px;
-        }
-
-        .mr-25 {
-            margin-right: 25px;
-        }
-
-        .mb-25 {
-            margin-bottom: 25px;
-        }
-        .h4, .h5, .h6, h4, h5, h6 {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-
-        /*  List*/
 
         .invoice-card {
             display: flex;
             flex-direction: column;
-            padding: 25px;
-            width:300px;
-            background-color: #fff;
+            width: 190px;
+            height: 150px;
+            background-color: #5fffb0;
             border-radius: 5px;
             /* box-shadow: 0px 10px 30px 15px rgba(0, 0, 0, 0.05);*/
-            margin: 35px auto;
+            margin: 0px auto;
         }
 
         .invoice-head,
@@ -97,12 +60,12 @@
         }
 
         .invoice-head {
-            flex-direction: column;
-            margin-bottom: 25px;
+            flex-direction: row;
+
         }
 
         .invoice-card .invoice-title {
-            margin: 15px 0;
+            margin: 0;
         }
 
         .invoice-title span {
@@ -122,8 +85,7 @@
 
         .invoice-list .row-data {
             border-bottom: 1px dashed #858080;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+
         }
 
         .invoice-list .row-data:last-child {
@@ -132,20 +94,17 @@
         }
 
         .invoice-list .heading {
-            font-size: 16px;
+            font-size: 1px;
             font-weight: 600;
             margin: 0;
         }
 
         .invoice-list thead tr td {
-            font-size: 15px;
+            font-size: 1px;
             font-weight: 600;
-            padding: 5px 0;
+
         }
 
-        .invoice-list tbody tr td {
-            line-height: 25px;
-        }
 
         .row-data {
             display: flex;
@@ -171,38 +130,24 @@
             font-weight: 500;
         }
 
-        .item-size {
-            line-height: 19px;
-        }
-
-        .item-size,
-        .item-number {
-            margin: 5px 0;
-        }
-
-        .invoice-footer {
-            margin-top: 20px;
-        }
-
-        .gap_right {
-            border-right: 1px solid #ddd;
-            padding-right: 15px;
-            margin-right: 15px;
-        }
-
-        .b_top {
-            border-top: 1px solid #ddd;
-            padding-top: 12px;
-        }
-
-
-
         .food_item .img_wrapper {
             padding: 15px 5px;
             background-color: #ececec;
             border-radius: 6px;
             position: relative;
             transition-duration: 0.4s;
+        }
+
+        .td-issue  {
+            word-break: break-all;
+            max-width: 140px;
+            max-height: 54px;
+            font-size: 8px;
+        }
+
+        .td-cost {
+            direction: ltr;
+            text-align: right;
         }
 
         .food_item .table_info {
@@ -219,7 +164,6 @@
         }
 
 
-
         .food_item:focus .bhojon_title,
         .food_item:hover .bhojon_title {
             color: #fff;
@@ -229,15 +173,13 @@
         .food_item:focus .img_wrapper {
             background-color: #383838;
         }
-
-
-        .text-center {
-            text-align: center;
-        }
-        .border-top{border-top: 2px dashed #858080;
-            background: #ececec;}
-        .text-bold{font-weight:bold !important;}
+.td-description{
+    text-align: center;
+}
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -245,114 +187,74 @@
 <div class="page-wrapper">
     <div class="invoice-card">
         <div class="invoice-head">
-            <img style="width: 100%;"
+
+            {!!  DNS2D::getBarcodeSVG(strval($maintenanceRequest->assets[0]->id), 'QRCODE' ,2 ,2)!!}
+            <img style="width: 60%;"
                  src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
         </div>
         <div class="invoice_address">
+
+
             <div class="row-data">
+
                 <div class="item-info">
-                    <h5 class="item-title">Date: Nov 08, 2021</h5>
+                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold" style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
+                        {{ '#' .$maintenanceRequest->id . ' in '.$maintenanceRequest->assets[0]->id }}</p>
+
+
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
+                            العميل:{{$maintenanceRequest->client->name}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> تاريخ
+                            الإستلام:{{$maintenanceRequest->created_at}} </strong></p>
+
                 </div>
-                <h5 class="item-title">TIN OR VAT NUM.: 23457586</h5>                </div>
+            </div>
         </div>
         <div class="invoice-details">
             <div class="invoice-list">
                 <div class="invoice-title">
-                    <h4 class="heading">Item</h4>
-                    <h4 class="heading heading-child">Total</h4>
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>اسم الجهاز:</td>
+                            <td class="td-description">{{$maintenanceRequest->assets[0]->name}} </td>
+
+                        </tr>
+                        <tr>
+                            <td>الـــعــطــل:</td>
+                            <td class="td-issue td-description">
+                                {{$maintenanceRequest->assets[0]->issue}} </td>
+                        </tr>
+                        <tr>
+                            <td>الـتــكـلـفة:</td>
+                            <td class="td-cost td-description">{{$maintenanceRequest->assets[0]->cost.' EGP'  }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    {{-- <p style="font-size: 6px">--}}
+                    {{--      </p>--}}
+
+                    {{--                    {{$maintenanceRequest->assets[0]->cost}}--}}
+                    {{--                    {{$maintenanceRequest->assets[0]->delivery_date}}--}}
+                    {{--                  --}}
+
+
                 </div>
 
-                <div class="invoice-data">
 
-                    <div class="row-data">
-                        <div class="item-info">
-                            <h5 class="item-title">Margherita</h5>
-                            <p class="item-size">Extra Sauce</p>
-                            <p class="item-number">50.000 x 3</p>
-                        </div>
-                        <h5>$ 150 </h5>
-                    </div>
-
-
-                </div>
             </div>
 
         </div>
-        <div class="invoice-footer mb-15">
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Subtotal</h5>
-                </div>
-                <h5 class="my-5">$ 150 </h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Vat(14.00%)</h5>
-                </div>
-                <h5 class="my-5">
-                    $          11.25                  </h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Service Charge</h5>
-                </div>
-                <h5 class="my-5">$30</h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Discount</h5>
-                </div>
-                <h5 class="my-5">$  63.772 </h5>
-            </div>
-            <div class="row-data border-top">
-                <div class="item-info">
-                    <h5 class="item-title text-bold">Grand Total</h5>
-                </div>
-                <h5 class="my-5">$ 127.48 </h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Customer Paid Amount</h5>
-                </div>
-                <h5 class="my-5">$  493.29 </h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Change Due</h5>
-                </div>
-                <h5 class="my-5">$  365.81 </h5>
-            </div>
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Total payment</h5>
-                </div>
-                <h5 class="my-5"> $493.29</h5>
-            </div>
-        </div>
 
-        <div class="invoice_address">
-            <div class="row-data">
-                <div class="item-info">
-                    <h5 class="item-title">Billing To: Walkin</h5>
-                </div>
-                <h5 class="my-5">Bill By:  </h5>
-            </div>
-            <div class="middle-data">
-                <div class="item-info gap_right">
-                    <h5 class="item-title">Table: 3</h5>
-                </div>
-                <div class="item-info">
-                    <h5 class="item-title">Order No.: 1</h5>
-                </div>
-            </div>
-            <div class="text-center">
-                <h3 class="mt-10">Thank you very much</h3>
-                <p class="b_top">Powered  By: BDTASK, www.bdtask.com</p>
-            </div>
-        </div>
+
     </div>
 </div>
 
 
 </body>
 </html>
+
+

@@ -17,6 +17,18 @@ class MaintenanceRequestRequest extends FormRequest
         // only allow updates if the user is logged in
         return backpack_auth()->check();
     }
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    public function validationData()
+    {
+    $data=    $this->all();
+    $data['assets']= json_decode($this->all()['assets'],true);
+
+        return $data;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,7 +38,10 @@ class MaintenanceRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'assets.*.name' => 'required',
+            'assets.*.issue' => 'required',
+            'assets.*.cost' => 'required|numeric',
+            'assets.*.delivery_date' => 'required|date',
         ];
     }
 

@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('crud.maintenance_request.requestAssets');
+
+ $maintenanceRequest = \App\Models\MaintenanceRequest::with(['assets','client'])->find(1);
+// return $maintenanceRequest;
+    return view('crud.maintenance_request.requestAssets')->with(['maintenanceRequest'=>$maintenanceRequest]);
 });

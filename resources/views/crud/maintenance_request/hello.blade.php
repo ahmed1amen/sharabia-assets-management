@@ -99,7 +99,7 @@
         <tr>
 
 
-            <th>   {!!  DNS2D::getBarcodeSVG('444564565665655656565656', 'QRCODE' , 3 ,3)!!}</th>
+            <th>   {!!  DNS2D::getBarcodeSVG('koooooot', 'QRCODE' , 3 ,3)!!}</th>
             <th>
                 <img style="width: 100%;"
                      src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
