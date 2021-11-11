@@ -32,24 +32,24 @@
             border: 1px solid black;
             border-collapse: inherit;
             font-size: 10px;
-            font-weight: 800
+            font-weight: 600
         }
 
-        .table-invoice   td.description,
-        .table-invoice     th.description {
+        .table-invoice td.description,
+        .table-invoice th.description {
             width: 75px;
             max-width: 75px;
         }
 
-        .table-invoice    td.quantity,
-        .table-invoice   th.quantity {
+        .table-invoice td.quantity,
+        .table-invoice th.quantity {
             width: 60px;
             max-width: 60px;
             word-break: break-all;
         }
 
-        .table-invoice   td.price,
-        .table-invoice  th.price {
+        .table-invoice td.price,
+        .table-invoice th.price {
             width: 60px;
             max-width: 60px;
             word-break: break-all;
@@ -89,7 +89,6 @@
         }
 
 
-
     </style>
 </head>
 <body>
@@ -98,9 +97,12 @@
     <table>
         <thead>
         <tr>
-            <th>   {!!   DNS2D::getBarcodeHTML('4445645656', 'QRCODE',3,3)!!}</th>
+
+
+            <th>   {!!  DNS2D::getBarcodeSVG('444564565665655656565656', 'QRCODE' , 3 ,3)!!}</th>
             <th>
-                <img style="width: 100%;" src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+                <img style="width: 100%;"
+                     src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
             </th>
         </tr>
         </thead>
@@ -108,11 +110,10 @@
         <tbody>
         <tr>
             <td class="centered" colspan="2">
-
-
                 <p style="font-size: 10px; font-weight: lighter">
-                    #54545  -     Monday, October 17, 2021  4:30 PM
-
+                    #54545 - Monday, October 17, 2021 4:30 PM
+                    <br>
+                    طلب صيانة
                 </p>
 
             </td>
@@ -122,12 +123,12 @@
         </tbody>
     </table>
 
-    <h1 class="centered" style="font-size: 22px;border: 5px solid;border-collapse: inherit; ">Shrabia Store</h1>
-    <h5 class="centered" style="font-size: 10px;    border-bottom: 2px solid; "> موبيل : 01066104107</h5>
+{{--    <h1 class="centered" style="font-size: 22px;border: 5px solid;border-collapse: inherit; ">Shrabia Store</h1>--}}
+{{--    <h5 class="centered" style="font-size: 10px;    border-bottom: 2px solid; "> موبيل : 01066104107</h5>--}}
 
-
-    <p class="centered" style="font-size: 10px;font-weight: 800; ">
-        اسم العميل : ayman hesham
+    <hr>
+    <p class="righted" style="font-size: 10px;font-weight: 800; margin: 10px 0 ">
+        Ayman Hesham : اسم العميل
     </p>
 
 
@@ -135,8 +136,8 @@
         <thead>
         <tr>
             <th style="max-width: 200px; width: 200px; text-align: center;">النوع</th>
-            <th>العطل</th>
-            <th>تاريخ الإستلام</th>
+            <th style="max-width: 300px; width: 300px; text-align: center;" >العطل</th>
+            <th style="max-width: 200px; width: 200px; text-align: center;">تاريخ الإستلام</th>
 
         </tr>
         </thead>
@@ -144,13 +145,13 @@
 
         <tr>
             <td style="max-width: 200px; width: 200px; text-align: center">test</td>
-            <td style="max-width: 200px; width: 200px; text-align: center"  class="centered">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center" class="centered"> </td>
             <td style="max-width: 200px; width: 200px; text-align: center" class="centered">test</td>
 
         </tr>
         <tr>
             <td style="max-width: 200px; width: 200px; text-align: center">test</td>
-            <td style="max-width: 200px; width: 200px; text-align: center"  class="centered">test</td>
+            <td style="max-width: 200px; width: 200px; text-align: center" class="centered">test</td>
             <td style="max-width: 200px; width: 200px; text-align: center" class="centered">test</td>
 
         </tr>
@@ -164,22 +165,17 @@
     </p>
 
     <p class="centered" style="font-size: 10px; border-top: 1px solid; font-weight: 900;">
-
-
-        الاجمالي: 100 --   المدفوع: 100
+        الاجمالي: 100 -- المدفوع: 100
         <br>
         المتبقي: 100
         <br>
-
-
     </p>
     <p class="centered">
         شكراً علي زيارتك لنا
         <br>
     </p>
-    <p class="centered" style="border-top: 0.4px solid; font-size: 11px; font-weight: 600">
-        Powered By Refilex . all rights reserved ©
-
+    <p class="centered" style="border-top: 0.4px solid; font-size: 8px; font-weight: 600">
+        Powered By Refilex Software Company . all rights reserved ©
     </p>
 </div>
 

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ClientAssetRequest;
+use App\Http\Requests\SettingRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ClientAssetCrudController
+ * Class SettingCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ClientAssetCrudController extends CrudController
+class SettingCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class ClientAssetCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\ClientAsset::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/client-asset');
-        CRUD::setEntityNameStrings('client asset', 'client assets');
+        CRUD::setModel(\App\Models\Setting::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/setting');
+        CRUD::setEntityNameStrings('setting', 'settings');
     }
 
     /**
@@ -39,13 +39,10 @@ class ClientAssetCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('created_at');
-        CRUD::column('delivery_date');
-        CRUD::column('employee_id');
         CRUD::column('id');
-        CRUD::column('issue');
-        CRUD::column('name');
-        CRUD::column('updated_at');
+        CRUD::column('key');
+        CRUD::column('value');
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -62,15 +59,11 @@ class ClientAssetCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ClientAssetRequest::class);
+        CRUD::setValidation(SettingRequest::class);
 
-        CRUD::field('created_at');
-        CRUD::field('delivery_date');
-        CRUD::field('employee_id');
-        CRUD::field('id');
-        CRUD::field('issue');
-        CRUD::field('name');
-        CRUD::field('updated_at');
+        CRUD::field('key');
+        CRUD::field('value');
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -88,33 +81,5 @@ class ClientAssetCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $this->crud->hasAccessOrFail('show');
-
-        // get entry ID from Request (makes sure its the last ID for nested resources)
-        $id = $this->crud->getCurrentEntryId() ?? $id;
-        $setFromDb = $this->crud->get('show.setFromDb');
-
-        // get the info for that entry
-        $this->data['entry'] = $this->crud->getEntry($id);
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.preview').' '.$this->crud->entity_name;
-
-
-
-
-
-
-        return view('crud.maintenance_request.crudShow', $this->data);
     }
 }
