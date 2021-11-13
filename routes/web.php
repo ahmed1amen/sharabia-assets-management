@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MaintenanceRequestCrudController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,5 @@ Route::get('/', function () {
 // return $maintenanceRequest;
     return view('crud.maintenance_request.requestAssets')->with(['maintenanceRequest'=>$maintenanceRequest]);
 });
+
+Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientStatus']);

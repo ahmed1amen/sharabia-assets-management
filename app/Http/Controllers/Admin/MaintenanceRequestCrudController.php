@@ -32,6 +32,7 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
         CRUD::setEntityNameStrings('maintenance request', 'maintenance requests');
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+        $this->crud->with(['assets','client']);
         $this->crud->setShowView('crud.maintenance_request.hello');
 
     }
@@ -236,5 +237,14 @@ class MaintenanceRequestCrudController extends CrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($item->getKey());
+    }
+
+
+    public function showClientStatus()
+    {
+
+
+
+        return view('clientStatus');
     }
 }
