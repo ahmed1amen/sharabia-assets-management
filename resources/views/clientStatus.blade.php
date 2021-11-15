@@ -51,7 +51,7 @@ p{
         #progressbar li {
             list-style-type: none;
             font-size: 13px;
-            width: 25%;
+            width: 50%;
             float: right;
             position: relative;
             font-weight: 400
@@ -151,50 +151,44 @@ p{
 
 
 
-
     <div id="accordion">
-        @foreach($maintenanceRequest->assets as $asset)
 
-        <div class="card">
-            <div class="card-header text-right" id="{{'asset-'. $asset->id}}">
-                <h5 class="mb-0">
-                    <button class="btn w-100 btn-link badge badge-info" data-toggle="collapse" data-target="#{{'asset-'. $asset->id}}" aria-expanded="true" aria-controls="{{'asset-'. $asset->id}}">
-                        {{$asset->name}}
-                    </button>
-                </h5>
-            </div>
+        <h5 class="my-5">ORDER <span class="text-danger font-weight-bolder">#{{$maintenanceRequest->id}}</span></h5>
+        <h5 class="">اسم العميل : <span class="text-danger font-weight-bolder"> {{$maintenanceRequest->client->name}}</span></h5>
+        <h5 class="">اجمالي التكلفة : <span class="text-danger font-weight-bolder"> {{$maintenanceRequest->total}} EGP</span></h5>
 
-            <div id="{{'asset-'. $asset->id}}" class="collapse" aria-labelledby="{{'asset-'. $asset->id}}" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="row d-flex justify-content-between px-3 top">
-                        <div class="d-flex">
-                            <h5>ORDER <span class="text-danger font-weight-bolder">#Y34XDHR</span></h5>
-                        </div>
-                        <div class="d-flex flex-column text-sm-right">
-                            <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
-                            <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12">
-                            <ul id="progressbar" class="text-center">
-                                <li class="active fa fa-archive">
-                                    <p class="font-weight-bold">تم<br>الإستلام</p>
-                                </li>
 
-                                <li class="active fa fa-wrench">
-                                    <p class="font-weight-bold">قيد<br>الصيانة</p>
-                                </li>
-                                <li class="fa fa-check-circle">
-                                    <p class="font-weight-bold">جاهز<br>للإستلام</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+    @foreach($maintenanceRequest->assets as $asset)
 
-                </div>
-            </div>
-        </div>
+       <div class="card">
+           <div class="card-header bg-dark text-right text-white">
+               <strong>#- {{$asset->name}}</strong>
+           </div>
+           <div class="card-body">
+               <div class="row d-flex justify-content-center px-3 top text-center">
+
+                   <p class="mb-0 font-weight-bolder">تاريخ التسليم المتوقع
+                       <span>{{  $asset->delivery_date}}</span></p>
+               </div>
+               <div class="row d-flex justify-content-center">
+                   <div class="col-12">
+                       <ul id="progressbar" class="text-center">
+                           <li class="{{($asset->status >= 0) ? 'active' : ''}} fa fa-archive">
+                               <p class="font-weight-bold">تم<br>الإستلام</p>
+                           </li>
+
+                           <li class="{{($asset->status >= 1) ? 'active' : ''}} fa fa-wrench">
+                               <p class="font-weight-bold">قيد<br>الصيانة</p>
+                           </li>
+                           <li class="{{($asset->status >= 2) ? 'active' : ''}} fa fa-check-circle">
+                               <p class="font-weight-bold">جاهز<br>للإستلام</p>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+
+           </div>
+       </div>
 
         @endforeach
 

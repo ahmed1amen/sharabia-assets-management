@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MaintenanceRequestRequest;
+use App\Models\ClientAsset;
 use App\Models\MaintenanceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Vinkla\Hashids\Facades\Hashids;
@@ -276,9 +278,11 @@ class MaintenanceRequestCrudController extends CrudController
     public function showClientStatus($id)
     {
 
+
         $decoded_id = Hashids::decode($id)[0] ?? null;
         if ($decoded_id) {
-            $maintenanceRequest = MaintenanceRequest::with(['assets','client'])->find($decoded_id);
+            $maintenanceRequest = MaintenanceRequest::with(['assets','client'])->findOrFail($decoded_id);
+
             return view('clientStatus', ['maintenanceRequest' => $maintenanceRequest]);
         } else
             abort(404);

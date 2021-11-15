@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class ClientAsset extends Model
@@ -54,6 +55,10 @@ class ClientAsset extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getDeliveryDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('l,d/m/Y');
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

@@ -73,7 +73,7 @@ class MaintenanceRequest extends Model
 
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::parse($date)->format('l d-m-Y - h:i:s A');
+        return Carbon::parse($date)->format('l,d/m/Y - h:i:s A');
     }
 
 

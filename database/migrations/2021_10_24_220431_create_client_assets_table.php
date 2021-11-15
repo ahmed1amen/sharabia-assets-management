@@ -20,7 +20,7 @@ class CreateClientAssetsTable extends Migration
             $table->unsignedBigInteger('maintenance_request_id');
             $table->string('issue');
             $table->double('cost')->default(0);
-            $table->double('delivered')->default(0);
+            $table->smallInteger('status')->default(0);
             $table->date('delivery_date');
 
 
