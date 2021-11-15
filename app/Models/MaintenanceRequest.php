@@ -37,11 +37,15 @@ class MaintenanceRequest extends Model
     */
     public function openGoogle($crud = false)
     {
-        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Reqest Assets"><i class="fa fa-search"></i>Request Assets</a>';
+        return '<a class="btn btn-sm btn-link"   href="' . route('client-asset.update',$this->id) . '/all' . '" data-toggle="tooltip" title="Reqest Assets"><i class="fa fa-search"></i>Request Assets</a>';
     }
     public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+    public function employee(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 
     public function assets(): \Illuminate\Database\Eloquent\Relations\HasMany

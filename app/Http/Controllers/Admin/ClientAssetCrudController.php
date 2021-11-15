@@ -14,7 +14,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ClientAssetCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+ // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -29,6 +29,7 @@ class ClientAssetCrudController extends CrudController
         CRUD::setModel(\App\Models\ClientAsset::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/client-asset');
         CRUD::setEntityNameStrings('client asset', 'client assets');
+
     }
 
     /**
@@ -39,13 +40,12 @@ class ClientAssetCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('created_at');
+
+        CRUD::column('id');
+        CRUD::column('name');
+        CRUD::column('issue');
         CRUD::column('delivery_date');
         CRUD::column('employee_id');
-        CRUD::column('id');
-        CRUD::column('issue');
-        CRUD::column('name');
-        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -64,13 +64,25 @@ class ClientAssetCrudController extends CrudController
     {
         CRUD::setValidation(ClientAssetRequest::class);
 
-        CRUD::field('created_at');
-        CRUD::field('delivery_date');
-        CRUD::field('employee_id');
-        CRUD::field('id');
-        CRUD::field('issue');
+        $this->crud->addField(
+            [
+                'label' => "Employee", // Table column heading
+                'type' => "select2",
+                'name' => 'employee_id', // the column that contains the ID of that connected entity;
+                'entity' => 'Employee', // the method that defines the relationship in your Model
+                'attribute' => "name", // foreign key attribute that is shown to user
+                'model' => "App\Models\Employee", // foreign key model
+            ]);
         CRUD::field('name');
-        CRUD::field('updated_at');
+        $this->crud->addField(
+            [
+                'label' => "issue",
+                'type' => "textarea",
+                'name' => 'issue',
+            ]);
+
+        CRUD::field('delivery_date');
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -12,7 +12,8 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "milon/barcode": "^8.0"
+        "milon/barcode": "^8.0",
+        "vinkla/hashids": "^9.1"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

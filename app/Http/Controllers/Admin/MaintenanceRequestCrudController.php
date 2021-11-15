@@ -7,6 +7,8 @@ use App\Models\MaintenanceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * Class MaintenanceRequestCrudController
@@ -20,6 +22,7 @@ class MaintenanceRequestCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -32,9 +35,14 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
         CRUD::setEntityNameStrings('maintenance request', 'maintenance requests');
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
-        $this->crud->with(['assets','client']);
+        $this->crud->with(['assets', 'client']);
         $this->crud->setShowView('crud.maintenance_request.hello');
 
+    }
+
+    protected function fetchClient()
+    {
+        return $this->fetch(\App\Models\Client::class);
     }
 
     /**
@@ -56,6 +64,14 @@ class MaintenanceRequestCrudController extends CrudController
                 'entity' => 'client', // the method that defines the relationship in your Model
                 'attribute' => "name", // foreign key attribute that is shown to user
                 'model' => "App\Models\Client", // foreign key model
+            ]);
+
+        $this->crud->addColumn(
+            [
+                'label' => "total", // Table column heading
+                'type' => "number",
+                'name' => 'total', // the column that contains the ID of that connected entity;
+                'editable' => true
             ]);
 
         CRUD::column('total');
@@ -98,16 +114,26 @@ class MaintenanceRequestCrudController extends CrudController
         ]);
 
         CRUD::setValidation(MaintenanceRequestRequest::class);
-        CRUD::field('client_id');
+
+        $this->crud->addField([
+            'label' => "Client",
+            'name' => 'client_id',
+            'entity' => 'Client',
+            'model' => "App\Models\Client",
+            'attribute' => "name",
+            'inline_create' => true,
+
+        ]);
         $this->crud->addField(
             [
+
                 'name' => 'total_paid',
                 'type' => 'number',
                 'label' => 'Total Paid',
-                'attributes' => ["step" => "any", 'min' => 0 ],
+                'attributes' => ["step" => "any", 'min' => 0],
                 'default' => '0',
             ]
-         );
+        );
         CRUD::field('assets')
             ->type('repeatable')
             ->label('Assets')
@@ -130,7 +156,7 @@ class MaintenanceRequestCrudController extends CrudController
                     'type' => 'number',
                     'label' => 'Cost',
                     'default' => '0',
-                    'attributes' => ["step" => "any", 'min' => 0 ],
+                    'attributes' => ["step" => "any", 'min' => 0],
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [   // date_picker
@@ -144,6 +170,13 @@ class MaintenanceRequestCrudController extends CrudController
                     ],
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
+                [
+                    'label' => "Employee",
+                    'name' => 'employee_id',
+                    'entity' => 'Employee',
+                    'model' => "App\Models\Employee",
+                    'attribute' => "name",
+                ]
 
 
             ]);
@@ -184,10 +217,10 @@ class MaintenanceRequestCrudController extends CrudController
         $request_data = $this->crud->getStrippedSaveRequest();
 
         //Get Request Data And Pluck The Item to calculate The Total Cost
-        $request_data['total'] =  array_sum(Arr::pluck($items,'cost'));
+        $request_data['total'] = array_sum(Arr::pluck($items, 'cost'));
 
         // insert item in the db
-        $item = $this->crud->create( $request_data);
+        $item = $this->crud->create($request_data);
         $this->data['entry'] = $this->crud->entry = $item;
 
         // associate the client assets to the maintenance request
@@ -221,7 +254,7 @@ class MaintenanceRequestCrudController extends CrudController
 
         $request_data = $this->crud->getStrippedSaveRequest();
         //Get Request Data And Pluck The Item to calculate The Total Cost
-        $request_data['total'] =  array_sum(Arr::pluck(json_decode($this->crud->getStrippedSaveRequest()['assets'],true),'cost'));
+        $request_data['total'] = array_sum(Arr::pluck(json_decode($this->crud->getStrippedSaveRequest()['assets'], true), 'cost'));
 
         // update the row in the db
         $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
@@ -240,11 +273,15 @@ class MaintenanceRequestCrudController extends CrudController
     }
 
 
-    public function showClientStatus()
+    public function showClientStatus($id)
     {
 
+        $decoded_id = Hashids::decode($id)[0] ?? null;
+        if ($decoded_id) {
+            $maintenanceRequest = MaintenanceRequest::with(['assets','client'])->find($decoded_id);
+            return view('clientStatus', ['maintenanceRequest' => $maintenanceRequest]);
+        } else
+            abort(404);
 
-
-        return view('clientStatus');
     }
 }

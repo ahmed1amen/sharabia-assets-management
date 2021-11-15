@@ -42,6 +42,7 @@ class MaintenanceRequestRequest extends FormRequest
             'assets.*.issue' => 'required',
             'assets.*.cost' => 'required|numeric',
             'assets.*.delivery_date' => 'required|date',
+            'assets.*.employee_id' => 'required',
         ];
     }
 

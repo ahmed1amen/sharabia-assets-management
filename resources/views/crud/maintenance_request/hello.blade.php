@@ -208,6 +208,9 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--        <div class="invoice-details">--}}
+
+
+
 {{--            <div class="invoice-list">--}}
 {{--                <div class="invoice-title">--}}
 
@@ -272,30 +275,25 @@
     <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <style>
         body {
             direction: rtl;
-            margin: 0;
+            margin: auto;
             padding: 0;
-
-            font-family: Consolas, sans-serif;
+            width: 270px;
+            font-family: "Cairo", sans-serif;
         }
 
         @page {
-            size: 2.8in 11in;
-            margin-top: 0cm;
-            margin-left: 0cm;
-            margin-right: 0cm;
+            margin-top: 0;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         table {
             width: 100%;
-        }
-
-        tr {
-            width: 100%;
-
         }
 
         h1 {
@@ -339,9 +337,9 @@
         }
 
         .items .heading {
-            font-size: 12.5px;
+            font-size: 13px;
             text-transform: uppercase;
-            border-top:1px solid black;
+            border-top: 1px solid black;
             margin-bottom: 4px;
             border-bottom: 1px solid black;
             vertical-align: middle;
@@ -349,60 +347,85 @@
 
         .items thead tr th:first-child,
         .items tbody tr td:first-child {
-            width: 47%;
-            min-width: 47%;
-            max-width: 47%;
+
             word-break: break-all;
-            text-align: left;
+            text-align: center;
         }
 
         .items td {
-            font-size: 12px;
-            text-align: right;
+
+            text-align: center;
             vertical-align: bottom;
         }
 
-        .price::before {
-            content: "\20B9";
-            font-family: Arial;
-            text-align: right;
-        }
 
         .sum-up {
             text-align: right !important;
         }
+
         .total {
             font-size: 13px;
-            border-top:1px dashed black !important;
-            border-bottom:1px dashed black !important;
+            border-top: 1px dashed black !important;
+            border-bottom: 1px dashed black !important;
         }
+
         .total.text, .total.price {
             text-align: right;
+            direction: ltr;
+
         }
-        .total.price::before {
-            content: "\20B9";
+
+        .total.price::after {
+            content: " EGP";
         }
+
         .line {
-            border-top:1px solid black !important;
+            border-top: 1px solid black !important;
         }
-        .heading.rate {
-            width: 20%;
-        }
-        .heading.amount {
-            width: 25%;
-        }
-        .heading.qty {
-            width: 5%
-        }
+
+
         p {
             padding: 1px;
             margin: 0;
         }
+
         section, footer {
             font-size: 12px;
         }
+
         .pos-header {
-            display: flex;
+            margin: auto;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border-top: 2px solid #000000;
+
+             }
+
+
+        .items > th, td {
+            padding: 5px 8px;
+            font-weight:700;
+            font-size:10px;
+            text-align: center;
+            border: 2px solid #000000;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+        .td-id {
+            width: 20px;
+        }
+
+        td:first-child, th:first-child {
+            max-width: 10px;
+            overflow: hidden;
         }
     </style>
     <title></title>
@@ -415,88 +438,88 @@
 </header>
 
 <div class="pos-header">
-    {!!  DNS2D::getBarcodeSVG(strval($crud->entry->id), 'QRCODE' ,4 ,4)!!}
-    <img style="width: 70%; height: 50%"
+    <img class="logo" width="600" height="400"
          src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+    {!!  DNS2D::getBarcodeSVG(route('client.status',$crud->entry->id), 'QRCODE'  ,5,5)!!}
+    <br>
+
+    <strong>Scan الكود علشان تعرف حالة جهازك</strong>
 
 </div>
+
 <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
    style=" direction: ltr; text-align: left; font-weight: 800; font-size: 14px; line-height: 0">
- {{ '#' .$crud->entry->id }}
+    {{ '#' .$crud->entry->id }}
 </p>
 
 
 <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 15px"><strong> اسم
-العميل:{{$crud->entry->client->name}} </strong></p>
+        العميل:{{$crud->entry->client->name}} </strong></p>
 <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 15px"><strong>
-{{$crud->entry->created_at}} </strong></p>
+        {{$crud->entry->created_at}} </strong></p>
 
 
-
-<table class="items">
+<table  class="items">
     <thead>
     <tr>
-        <th class="heading name">اسم الجهاز</th>
-        <th class="heading qty">العطل</th>
-        <th class="heading rate">Rate</th>
-        <th class="heading amount">Amount</th>
+        <th class="heading  ">#</th>
+        <th class="heading  ">اسم الجهاز</th>
+        <th class="heading  ">العطل</th>
+
     </tr>
     </thead>
 
     <tbody>
     <tr>
+        <td class="td-id">3</td>
         <td>Chocolate milkshake frappe</td>
-        <td>1</td>
-        <td class="price">200.00</td>
-        <td class="price">200.00</td>
+        <td>سوكت شحن ومعطل في جراب وكسر</td>
     </tr>
     <tr>
+        <td class="td-id">3</td>
         <td>Non-Veg Focaccoa S/W</td>
         <td>2</td>
-        <td class="price">300.00</td>
-        <td class="price">600.00</td>
     </tr>
     <tr>
+        <td class="td-id">3</td>
         <td>Classic mojito</td>
         <td>1</td>
-        <td class="price">800.00</td>
-        <td class="price">800.00</td>
     </tr>
     <tr>
+        <td class="td-id">3</td>
         <td>Non-Veg Ciabatta S/W</td>
         <td>1</td>
-        <td class="price">500.00</td>
-        <td class="price">500.00</td>
     </tr>
+
     <tr>
-        <td colspan="3" class="sum-up line">Subtotal</td>
-        <td class="line price">12112.00</td>
-    </tr>
-    <tr>
-        <td colspan="3" class="sum-up">CGST</td>
-        <td class="price">10.00</td>
-    </tr>
-    <tr>
-        <td colspan="3" class="sum-up">SGST</td>
-        <td class="price">10.00</td>
-    </tr>
-    <tr>
-        <th colspan="3" class="total text">Total</th>
+        <th colspan="2" class="total text">الأجمالي</th>
         <th class="total price">12132.00</th>
     </tr>
     </tbody>
 </table>
 <section>
-    <p>
-        Paid by : <span>CASH</span>
-    </p>
-    <p style="text-align:center">
-        Thank you for your visit!
+    <p style="text-align:center; direction: ltr; font-weight: 800;font-size: 15px">
+        Thank you for your visit !
     </p>
 </section>
 <footer style="text-align:center">
-    <p>Technology Partner Dotworld Technologies</p>
-    <p>www.dotworld.in</p>
+    <p>
+        <strong> ممر 3، غيط العدة، عابدين، محافظة القاهرة</strong>
+        <br>
+        <strong> 023964445 - 01148366669 - 01224819244</strong>
+        <br>
+
+
+        <span class="center-align">
+               {!!  DNS2D::getBarcodeSVG('99999999999999999999999', 'QRCODE'  ,3,3)!!}
+        </span>
+        <br>
+        <span style="border-top: 1px solid; ">
+
+Technology Partner Refilex - www.Refilex.com
+       </span>
+    </p>
+
 </footer>
 </body>
 

@@ -148,58 +148,85 @@ p{
 
 <div class="container text-center px-1 px-md-4 py-5 mx-auto">
     <img class="img-fluid w-50" src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
-    <div class="card">
-        <div class="row d-flex justify-content-between px-3 top">
-            <div class="d-flex">
-                <h5>ORDER <span class="text-danger font-weight-bolder">#Y34XDHR</span></h5>
-            </div>
-            <div class="d-flex flex-column text-sm-right">
-                <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
-                <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
-            </div>
-        </div> <!-- Add class 'active' to progress -->
-        <div class="row d-flex justify-content-center">
-            <div class="col-12">
-                <ul id="progressbar" class="text-center">
-                    <li class="active fa fa-archive">
-                        <p class="font-weight-bold">تم<br>الإستلام</p>
-                    </li>
 
-                    <li class="active fa fa-wrench">
-                        <p class="font-weight-bold">قيد<br>الصيانة</p>
-                    </li>
-                    <li class="fa fa-check-circle">
-                        <p class="font-weight-bold">جاهز<br>للإستلام</p>
-                    </li>
-                </ul>
+
+
+
+    <div id="accordion">
+        @foreach($maintenanceRequest->assets as $asset)
+
+        <div class="card">
+            <div class="card-header text-right" id="{{'asset-'. $asset->id}}">
+                <h5 class="mb-0">
+                    <button class="btn w-100 btn-link badge badge-info" data-toggle="collapse" data-target="#{{'asset-'. $asset->id}}" aria-expanded="true" aria-controls="{{'asset-'. $asset->id}}">
+                        {{$asset->name}}
+                    </button>
+                </h5>
+            </div>
+
+            <div id="{{'asset-'. $asset->id}}" class="collapse" aria-labelledby="{{'asset-'. $asset->id}}" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="row d-flex justify-content-between px-3 top">
+                        <div class="d-flex">
+                            <h5>ORDER <span class="text-danger font-weight-bolder">#Y34XDHR</span></h5>
+                        </div>
+                        <div class="d-flex flex-column text-sm-right">
+                            <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
+                            <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12">
+                            <ul id="progressbar" class="text-center">
+                                <li class="active fa fa-archive">
+                                    <p class="font-weight-bold">تم<br>الإستلام</p>
+                                </li>
+
+                                <li class="active fa fa-wrench">
+                                    <p class="font-weight-bold">قيد<br>الصيانة</p>
+                                </li>
+                                <li class="fa fa-check-circle">
+                                    <p class="font-weight-bold">جاهز<br>للإستلام</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="row justify-content-between top">
-            <div class="row d-flex icon-content">
-                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Order<br>Processed</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/u1AzR7w.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Order<br>Shipped</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/TkPm63y.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Order<br>En Route</p>
-                </div>
-            </div>
-            <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/HdsziHP.png">
-                <div class="d-flex flex-column">
-                    <p class="font-weight-bold">Order<br>Arrived</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
+        @endforeach
+
+
+
 </div>
 
 
+{{--<div class="row justify-content-between top">--}}
+{{--    <div class="row d-flex icon-content">--}}
+{{--        <img class="icon" src="https://i.imgur.com/9nnc9Et.png">--}}
+{{--        <div class="d-flex flex-column">--}}
+{{--            <p class="font-weight-bold">Order<br>Processed</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/u1AzR7w.png">--}}
+{{--        <div class="d-flex flex-column">--}}
+{{--            <p class="font-weight-bold">Order<br>Shipped</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/TkPm63y.png">--}}
+{{--        <div class="d-flex flex-column">--}}
+{{--            <p class="font-weight-bold">Order<br>En Route</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <div class="row d-flex icon-content"><img class="icon" src="https://i.imgur.com/HdsziHP.png">--}}
+{{--        <div class="d-flex flex-column">--}}
+{{--            <p class="font-weight-bold">Order<br>Arrived</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

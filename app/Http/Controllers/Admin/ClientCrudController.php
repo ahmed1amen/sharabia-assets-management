@@ -18,6 +18,9 @@ class ClientCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+
+
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -64,14 +67,11 @@ class ClientCrudController extends CrudController
     {
         CRUD::setValidation(ClientRequest::class);
 
-        CRUD::field('address');
-        CRUD::field('created_at');
-        CRUD::field('email');
-        CRUD::field('id');
         CRUD::field('name');
-        CRUD::field('notes');
         CRUD::field('phone');
-        CRUD::field('updated_at');
+        CRUD::field('email');
+        CRUD::field('address');
+        CRUD::field('notes');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

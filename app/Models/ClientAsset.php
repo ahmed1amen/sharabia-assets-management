@@ -38,6 +38,10 @@ class ClientAsset extends Model
     {
         return $this->belongsTo(MaintenanceRequest::class);
     }
+    public function employee(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
