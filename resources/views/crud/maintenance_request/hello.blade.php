@@ -440,7 +440,7 @@
 <div class="pos-header">
     <img class="logo" width="600" height="400"
          src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
-    {!!  DNS2D::getBarcodeSVG(route('client.status',\Hashids\Hashids::encode($crud->entry->id)), 'QRCODE'  ,5,5)!!}
+    {!!  DNS2D::getBarcodeSVG(route('client.status',\Vinkla\Hashids\Facades\Hashids::encode($crud->entry->id)), 'QRCODE'  ,5,5)!!}
     <br>
 
     <strong>Scan الكود علشان تعرف حالة جهازك</strong>
