@@ -28,7 +28,8 @@ class ClientAssetCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\ClientAsset::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/client-asset');
-        CRUD::setEntityNameStrings('client asset', 'client assets');
+        CRUD::setEntityNameStrings(__('crud.singular.client_asset'), __('crud.plural.client_asset'));
+
 
     }
 

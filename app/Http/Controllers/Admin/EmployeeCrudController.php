@@ -28,7 +28,7 @@ class EmployeeCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
-        CRUD::setEntityNameStrings('employee', 'employees');
+        CRUD::setEntityNameStrings(__('crud.singular.employee'), __('crud.plural.employee'));
     }
 
     /**
@@ -39,11 +39,11 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('name');
-        CRUD::column('position');
-        CRUD::column('description');
-        CRUD::column('created_at');
+        $this->crud->column('id')->label(__('crud.models.Employee.id'));
+        $this->crud->column('name')->label(__('crud.models.Employee.name'));
+        $this->crud->column('position')->label(__('crud.models.Employee.position'));
+        $this->crud->column('description')->label(__('crud.models.Employee.description'));
+        $this->crud->column('created_at')->label(__('crud.models.created_at'));
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -62,12 +62,29 @@ class EmployeeCrudController extends CrudController
     {
         CRUD::setValidation(EmployeeRequest::class);
 
-        CRUD::field('created_at');
-        CRUD::field('description');
-        CRUD::field('id');
-        CRUD::field('name');
-        CRUD::field('position');
-        CRUD::field('updated_at');
+        $this->crud->addField(
+            [
+                'label' => __('crud.models.Employee.name'), // Table column heading
+                'type' => "text",
+                'name' => 'name', // the column that contains the ID of that connected entity;
+            ]);
+        $this->crud->addField(
+        [
+                'label' => __('crud.models.Employee.position'), // Table column heading
+                'type' => "text",
+                'name' => 'position', // the column that contains the ID of that connected entity;
+            ]);
+
+
+        $this->crud->addField(
+            [
+                'label' => __('crud.models.Employee.description'), // Table column heading
+                'type' => "textarea",
+                'name' => 'description', // the column that contains the ID of that connected entity;
+            ]);
+
+
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -35,7 +35,7 @@ class MaintenanceRequestCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\MaintenanceRequest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
-        CRUD::setEntityNameStrings('maintenance request', 'maintenance requests');
+        CRUD::setEntityNameStrings(__('crud.singular.maintenance_request'), __('crud.plural.maintenance_request'));
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
         $this->crud->with(['assets', 'client']);
         $this->crud->setShowView('crud.maintenance_request.hello');
@@ -60,7 +60,7 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::column('id')->label('#');
         $this->crud->addColumn(
             [
-                'label' => "Client", // Table column heading
+                'label' => __('crud.models.Client.name'), // Table column heading
                 'type' => "select",
                 'name' => 'client_id', // the column that contains the ID of that connected entity;
                 'entity' => 'client', // the method that defines the relationship in your Model
@@ -70,15 +70,26 @@ class MaintenanceRequestCrudController extends CrudController
 
         $this->crud->addColumn(
             [
-                'label' => "total", // Table column heading
+                'label' => __('crud.models.MaintenanceRequest.total'), // Table column heading
                 'type' => "number",
                 'name' => 'total', // the column that contains the ID of that connected entity;
                 'editable' => true
             ]);
+        $this->crud->addColumn(
+            [
+                'label' => __('crud.models.MaintenanceRequest.total_paid'), // Table column heading
+                'type' => "number",
+                'name' => 'total_paid', // the column that contains the ID of that connected entity;
+                'editable' => true
+            ]);
+        $this->crud->addColumn(
+            [
+                'label' => __('crud.models.MaintenanceRequest.amount_due'), // Table column heading
+                'type' => "number",
+                'name' => 'amount_due', // the column that contains the ID of that connected entity;
+                'editable' => true
+            ]);
 
-        CRUD::column('total');
-        CRUD::column('total_paid');
-        CRUD::column('amount_due');
         CRUD::column('created_at');
 
         /**
@@ -118,7 +129,7 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setValidation(MaintenanceRequestRequest::class);
 
         $this->crud->addField([
-            'label' => "Client",
+            'label' => __('crud.models.Client.name'),
             'name' => 'client_id',
             'entity' => 'Client',
             'model' => "App\Models\Client",
@@ -131,32 +142,34 @@ class MaintenanceRequestCrudController extends CrudController
 
                 'name' => 'total_paid',
                 'type' => 'number',
-                'label' => 'Total Paid',
+                'label' => __('crud.models.MaintenanceRequest.total_paid'),
                 'attributes' => ["step" => "any", 'min' => 0],
                 'default' => '0',
             ]
         );
-        CRUD::field('assets')
-            ->type('repeatable')
-            ->label('Assets')
-            ->fields([
+        $this->crud->addField([
+            'name' => 'assets',
+            'label' => __('crud.plural.client_asset'),
+            'type' => 'repeatable',
+            'new_item_label' => 'اضافة جهاز', // c
+            'fields' => [
 
                 [
                     'name' => 'name',
                     'type' => 'text',
-                    'label' => 'Name',
+                    'label' => __('crud.models.ClientAsset.name'),
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [
                     'name' => 'issue',
                     'type' => 'text',
-                    'label' => 'issue',
+                    'label' => __('crud.models.ClientAsset.issue'),
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [
                     'name' => 'cost',
                     'type' => 'number',
-                    'label' => 'Cost',
+                    'label' => __('crud.models.ClientAsset.cost'),
                     'default' => '0',
                     'attributes' => ["step" => "any", 'min' => 0],
                     'wrapper' => ['class' => 'form-group col-md-6'],
@@ -164,7 +177,7 @@ class MaintenanceRequestCrudController extends CrudController
                 [   // date_picker
                     'name' => 'delivery_date',
                     'type' => 'date_picker',
-                    'label' => 'Deliver Date',
+                    'label' => __('crud.models.ClientAsset.delivery_date'),
                     'date_picker_options' => [
                         'todayBtn' => 'linked',
                         'format' => 'dd-mm-yyyy',
@@ -173,7 +186,7 @@ class MaintenanceRequestCrudController extends CrudController
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [
-                    'label' => "Employee",
+                    'label' => __('crud.models.Employee.name'),
                     'name' => 'employee_id',
                     'entity' => 'Employee',
                     'model' => "App\Models\Employee",
@@ -181,7 +194,8 @@ class MaintenanceRequestCrudController extends CrudController
                 ]
 
 
-            ]);
+            ]
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -281,7 +295,7 @@ class MaintenanceRequestCrudController extends CrudController
 
         $decoded_id = Hashids::decode($id)[0] ?? null;
         if ($decoded_id) {
-            $maintenanceRequest = MaintenanceRequest::with(['assets','client'])->findOrFail($decoded_id);
+            $maintenanceRequest = MaintenanceRequest::with(['assets', 'client'])->findOrFail($decoded_id);
 
             return view('clientStatus', ['maintenanceRequest' => $maintenanceRequest]);
         } else
