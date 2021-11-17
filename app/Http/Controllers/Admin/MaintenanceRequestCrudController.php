@@ -84,7 +84,7 @@ class MaintenanceRequestCrudController extends CrudController
             ]);
         $this->crud->addColumn(
             [
-                'label' => __('crud.models.MaintenanceRequest.amount_due'), // Table column heading
+                'label' => __('crud.Models.MaintenanceRequest.amount_due'), // Table column heading
                 'type' => "number",
                 'name' => 'amount_due', // the column that contains the ID of that connected entity;
                 'editable' => true

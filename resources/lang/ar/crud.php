@@ -51,6 +51,7 @@ return [
         'MaintenanceRequest' => [
             'total' => 'الاجمالي',
             'total_paid' => 'المدفوع',
+            'amount_due' => 'المتبقي',
 
 
         ]
