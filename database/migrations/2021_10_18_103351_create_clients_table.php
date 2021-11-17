@@ -17,9 +17,9 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->tinyText('name');
             $table->string('phone');
-            $table->tinyText('address');
-            $table->string('email')->unique();
-            $table->mediumText('notes');
+            $table->tinyText('address')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->mediumText('notes')->nullable();
             $table->timestamps();
         });
     }
