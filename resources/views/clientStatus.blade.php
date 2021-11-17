@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Snippet - BBBootstrap</title>
+    <title>Shrabiastore Store - Maintenance Request</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -156,8 +156,6 @@ p{
         <h5 class="my-5">ORDER <span class="text-danger font-weight-bolder">#{{$maintenanceRequest->id}}</span></h5>
         <h5 class="">اسم العميل : <span class="text-danger font-weight-bolder"> {{$maintenanceRequest->client->name}}</span></h5>
         <h5 class="">اجمالي التكلفة : <span class="text-danger font-weight-bolder"> {{$maintenanceRequest->total}} EGP</span></h5>
-
-
     @foreach($maintenanceRequest->assets as $asset)
 
        <div class="card">
@@ -180,12 +178,20 @@ p{
                            <li class="{{($asset->status >= 1) ? 'active' : ''}} fa fa-wrench">
                                <p class="font-weight-bold">قيد<br>الصيانة</p>
                            </li>
+
+
                            <li class="{{($asset->status >= 2) ? 'active' : ''}} fa fa-check-circle">
                                <p class="font-weight-bold">جاهز<br>للإستلام</p>
                            </li>
                        </ul>
                    </div>
                </div>
+
+           </div>
+           <div class="card-footer">
+               @if ($asset->status >=2)
+               <h5 class=""> التكلفة : <span class="text-danger font-weight-bolder"> {{$asset->cost}} EGP</span></h5>
+               @endif
 
            </div>
        </div>
