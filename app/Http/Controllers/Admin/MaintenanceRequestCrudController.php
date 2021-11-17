@@ -89,14 +89,7 @@ class MaintenanceRequestCrudController extends CrudController
                 'name' => 'amount_due', // the column that contains the ID of that connected entity;
                 'editable' => true
             ]);
-
         CRUD::column('created_at');
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -301,5 +294,15 @@ class MaintenanceRequestCrudController extends CrudController
         } else
             abort(404);
 
+    }
+
+    public function showClientAssets($id)
+    {
+        $decoded_id = Hashids::decode($id)[0] ?? null;
+        if ($decoded_id) {
+            $maintenanceRequest = MaintenanceRequest::with(['assets', 'client'])->findOrFail($decoded_id);
+            return view('clientStatus', ['maintenanceRequest' => $maintenanceRequest]);
+        } else
+            abort(404);
     }
 }
