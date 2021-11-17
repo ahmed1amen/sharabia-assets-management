@@ -122,12 +122,6 @@ class ClientAssetCrudController extends CrudController
         $this->data['entry'] = $this->crud->getEntry($id);
         $this->data['crud'] = $this->crud;
         $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.preview').' '.$this->crud->entity_name;
-
-
-
-
-
-
-        return view('crud.maintenance_request.crudShow', $this->data);
+        return view('crud.maintenance_request.requestAssets', $this->data);
     }
 }

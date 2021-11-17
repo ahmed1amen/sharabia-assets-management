@@ -23,4 +23,4 @@ Route::get('/', function () {
 });
 
 Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientStatus'])->name('client.status');
-Route::get('/admin/client-asset/{id}/all', [MaintenanceRequestCrudController::class,'showClientStatus'])->name('client.status');
+Route::get('/admin/client-asset/{id}/all', [\App\Http\Controllers\Admin\ClientAssetCrudController::class,'show'])->name('client.status');

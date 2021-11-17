@@ -2,6 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Assets Sticker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -11,6 +12,12 @@
             size: auto;   /* auto is the initial value */
             /* this affects the margin in the printer settings */
             margin: 0mm 0 0mm 0;
+        }
+
+        @media print {
+            .invoice-card {
+                page-break-after: always;
+            }
         }
 
         body {
@@ -41,11 +48,13 @@
             display: flex;
             flex-direction: column;
             width: 190px;
+
             height: 150px;
+            max-height: 150px;
             background-color: #5fffb0;
             border-radius: 5px;
             /* box-shadow: 0px 10px 30px 15px rgba(0, 0, 0, 0.05);*/
-            margin: 0px auto;
+            margin: 1px auto;
         }
 
         .invoice-head,
@@ -138,7 +147,7 @@
             transition-duration: 0.4s;
         }
 
-        .td-issue  {
+        .td-issue {
             word-break: break-all;
             max-width: 140px;
             max-height: 54px;
@@ -173,9 +182,10 @@
         .food_item:focus .img_wrapper {
             background-color: #383838;
         }
-.td-description{
-    text-align: center;
-}
+
+        .td-description {
+            text-align: center;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,7 +208,8 @@
             <div class="row-data">
 
                 <div class="item-info">
-                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold" style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
+                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
+                       style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
                         {{ '#' .$maintenanceRequest->id . ' in '.$maintenanceRequest->assets[0]->id }}</p>
 
 
@@ -223,8 +234,20 @@
                         </tr>
                         <tr>
                             <td>الـــعــطــل:</td>
+
                             <td class="td-issue td-description">
-                                {{$maintenanceRequest->assets[0]->issue}} </td>
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                            </td>
                         </tr>
                         <tr>
                             <td>الـتــكـلـفة:</td>
@@ -251,6 +274,244 @@
 
 
     </div>
+    <div class="invoice-card">
+        <div class="invoice-head">
+
+            {!!  DNS2D::getBarcodeSVG(strval($maintenanceRequest->assets[0]->id), 'QRCODE' ,2 ,2)!!}
+            <img style="width: 60%;"
+                 src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+        </div>
+        <div class="invoice_address">
+
+
+            <div class="row-data">
+
+                <div class="item-info">
+                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
+                       style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
+                        {{ '#' .$maintenanceRequest->id . ' in '.$maintenanceRequest->assets[0]->id }}</p>
+
+
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
+                            العميل:{{$maintenanceRequest->client->name}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> تاريخ
+                            الإستلام:{{$maintenanceRequest->created_at}} </strong></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="invoice-details">
+            <div class="invoice-list">
+                <div class="invoice-title">
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>اسم الجهاز:</td>
+                            <td class="td-description">{{$maintenanceRequest->assets[0]->name}} </td>
+
+                        </tr>
+                        <tr>
+                            <td>الـــعــطــل:</td>
+
+                            <td class="td-issue td-description">
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>الـتــكـلـفة:</td>
+                            <td class="td-cost td-description">{{$maintenanceRequest->assets[0]->cost.' EGP'  }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    {{-- <p style="font-size: 6px">--}}
+                    {{--      </p>--}}
+
+                    {{--                    {{$maintenanceRequest->assets[0]->cost}}--}}
+                    {{--                    {{$maintenanceRequest->assets[0]->delivery_date}}--}}
+                    {{--                  --}}
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="invoice-card">
+        <div class="invoice-head">
+
+            {!!  DNS2D::getBarcodeSVG(strval($maintenanceRequest->assets[0]->id), 'QRCODE' ,2 ,2)!!}
+            <img style="width: 60%;"
+                 src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+        </div>
+        <div class="invoice_address">
+
+
+            <div class="row-data">
+
+                <div class="item-info">
+                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
+                       style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
+                        {{ '#' .$maintenanceRequest->id . ' in '.$maintenanceRequest->assets[0]->id }}</p>
+
+
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
+                            العميل:{{$maintenanceRequest->client->name}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> تاريخ
+                            الإستلام:{{$maintenanceRequest->created_at}} </strong></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="invoice-details">
+            <div class="invoice-list">
+                <div class="invoice-title">
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>اسم الجهاز:</td>
+                            <td class="td-description">{{$maintenanceRequest->assets[0]->name}} </td>
+
+                        </tr>
+                        <tr>
+                            <td>الـــعــطــل:</td>
+
+                            <td class="td-issue td-description">
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>الـتــكـلـفة:</td>
+                            <td class="td-cost td-description">{{$maintenanceRequest->assets[0]->cost.' EGP'  }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    {{-- <p style="font-size: 6px">--}}
+                    {{--      </p>--}}
+
+                    {{--                    {{$maintenanceRequest->assets[0]->cost}}--}}
+                    {{--                    {{$maintenanceRequest->assets[0]->delivery_date}}--}}
+                    {{--                  --}}
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="invoice-card">
+        <div class="invoice-head">
+
+            {!!  DNS2D::getBarcodeSVG(strval($maintenanceRequest->assets[0]->id), 'QRCODE' ,2 ,2)!!}
+            <img style="width: 60%;"
+                 src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
+        </div>
+        <div class="invoice_address">
+
+
+            <div class="row-data">
+
+                <div class="item-info">
+                    <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
+                       style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
+                        {{ '#' .$maintenanceRequest->id . ' in '.$maintenanceRequest->assets[0]->id }}</p>
+
+
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
+                            العميل:{{$maintenanceRequest->client->name}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> تاريخ
+                            الإستلام:{{$maintenanceRequest->created_at}} </strong></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="invoice-details">
+            <div class="invoice-list">
+                <div class="invoice-title">
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>اسم الجهاز:</td>
+                            <td class="td-description">{{$maintenanceRequest->assets[0]->name}} </td>
+
+                        </tr>
+                        <tr>
+                            <td>الـــعــطــل:</td>
+
+                            <td class="td-issue td-description">
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                                {{ $maintenanceRequest->assets[0]->issue }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>الـتــكـلـفة:</td>
+                            <td class="td-cost td-description">{{$maintenanceRequest->assets[0]->cost.' EGP'  }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    {{-- <p style="font-size: 6px">--}}
+                    {{--      </p>--}}
+
+                    {{--                    {{$maintenanceRequest->assets[0]->cost}}--}}
+                    {{--                    {{$maintenanceRequest->assets[0]->delivery_date}}--}}
+                    {{--                  --}}
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
 </div>
 
 
