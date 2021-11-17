@@ -22,5 +22,5 @@ Route::get('/', function () {
     return view('crud.maintenance_request.requestAssets')->with(['maintenanceRequest'=>$maintenanceRequest]);
 });
 
-Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientStatus'])->name('client.status');
-Route::get('/admin/client-asset/{id}/all', [\App\Http\Controllers\Admin\ClientAssetCrudController::class,'show'])->name('client.status');
+Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientAssetsInvoice'])->name('client.status');
+Route::get('/admin/maintenance-request/{id}/all', [MaintenanceRequestCrudController::class,'showClientAssetsSticker'])->name('client.assets.stickers');

@@ -296,7 +296,7 @@ class MaintenanceRequestCrudController extends CrudController
 
     }
 
-    public function showClientAssets($id)
+    public function showClientAssetsInvoice($id)
     {
         $decoded_id = Hashids::decode($id)[0] ?? null;
         if ($decoded_id) {
@@ -304,5 +304,13 @@ class MaintenanceRequestCrudController extends CrudController
             return view('clientStatus', ['maintenanceRequest' => $maintenanceRequest]);
         } else
             abort(404);
+    }
+
+    public function showClientAssetsSticker($id)
+    {
+
+        $maintenanceRequest = MaintenanceRequest::with(['assets', 'client'])->findOrFail($id);
+        return view('crud.maintenance_request.requestAssets' ,['maintenanceRequest'=>$maintenanceRequest]);
+
     }
 }
