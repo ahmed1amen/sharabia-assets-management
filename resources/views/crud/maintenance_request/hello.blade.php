@@ -470,30 +470,18 @@
     </thead>
 
     <tbody>
-    <tr>
-        <td class="td-id">3</td>
-        <td>Chocolate milkshake frappe</td>
-        <td>سوكت شحن ومعطل في جراب وكسر</td>
-    </tr>
-    <tr>
-        <td class="td-id">3</td>
-        <td>Non-Veg Focaccoa S/W</td>
-        <td>2</td>
-    </tr>
-    <tr>
-        <td class="td-id">3</td>
-        <td>Classic mojito</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td class="td-id">3</td>
-        <td>Non-Veg Ciabatta S/W</td>
-        <td>1</td>
-    </tr>
+    @foreach($crud->entry->assets as $asset)
+
+        <tr>
+            <td class="td-id">{{$asset->id}}</td>
+            <td>{{$asset->name}}</td>
+            <td>{{$asset->issue}}</td>
+        </tr>
+        @endforeach
 
     <tr>
-        <th colspan="2" class="total text">الأجمالي</th>
-        <th class="total price">12132.00</th>
+{{--        <th colspan="2" class="total text">الأجمالي</th>--}}
+{{--        <th class="total price">12132.00</th>--}}
     </tr>
     </tbody>
 </table>
