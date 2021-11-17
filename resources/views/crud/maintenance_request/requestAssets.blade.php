@@ -131,7 +131,7 @@
         }
 
         .item-info {
-            max-width: 200px;
+             width: 100%;
         }
 
         .item-title {
@@ -194,7 +194,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body onload="window.print()">
 
 <div class="page-wrapper">
     @foreach($maintenanceRequest->assets as $asset)
@@ -220,8 +220,10 @@
 
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
                             العميل:{{$maintenanceRequest->client->name}} </strong></p>
-                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> تاريخ
-                            الإستلام:{{$asset->delivery_date}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
+                             تاريخ الإستلام:{{$asset->delivery_date}} </strong></p>
+                    <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
+                              الموظف المسؤول:{{$asset->employee->name}} </strong></p>
 
                 </div>
             </div>

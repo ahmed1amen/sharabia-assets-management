@@ -37,7 +37,7 @@ class MaintenanceRequest extends Model
     */
     public function openGoogle($crud = false)
     {
-        return '<a class="btn btn-sm btn-link"   href="' . route('client.assets.stickers',$this->id)  . '" data-toggle="tooltip" title="Reqest Assets"><i class="fa fa-search"></i>Request Assets</a>';
+        return '<button  class="btn btn-sm btn-link"   onclick="printPosinvoice(' .$this->id .')" data-toggle="tooltip" title="Reqest Assets"><i class="fa fa-search"></i>Request Assets</button  >';
     }
     public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
