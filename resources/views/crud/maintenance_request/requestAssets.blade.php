@@ -240,6 +240,7 @@
                         <tr>
                             <td>الـــعــطــل:</td>
 
+
                             <td class="td-issue td-description">
                                 {{ $asset->issue }}
                                                       </td>
