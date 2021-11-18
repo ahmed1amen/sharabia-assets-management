@@ -36,7 +36,8 @@ class MaintenanceRequestCrudController extends CrudController
         CRUD::setModel(\App\Models\MaintenanceRequest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/maintenance-request');
         CRUD::setEntityNameStrings(__('crud.singular.maintenance_request'), __('crud.plural.maintenance_request'));
-        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+        $this->crud->addButtonFromModelFunction('line', 'printSticker', 'printSticker', 'beginning');
+        $this->crud->addButtonFromModelFunction('line', 'PrintPos', 'PrintPos', 'beginning');
         $this->crud->with(['assets', 'client']);
         $this->crud->setShowView('crud.maintenance_request.hello');
 
@@ -207,22 +208,22 @@ class MaintenanceRequestCrudController extends CrudController
     {
         $this->setupCreateOperation();
 
-//        $this->crud->modifyField('assets', [
-//            'name' => 'assets',
-//            'label' => __('crud.plural.client_asset'),
-//            'type' => 'repeatable',
-//            'new_item_label' => 'اضافة جهاز',
-//            'fields' =>   array_merge( $this->crud->getFields()['assets']['fields'],[[
-//                'name'            => 'status',
-//                'label'           => "الحالة",
-//                'type'            => 'select_from_array',
-//                'options'         => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
-//                'allows_null'     => false,
-//
-//            ]]),
-//
-//
-//        ]);
+        $this->crud->modifyField('assets', [
+            'name' => 'assets',
+            'label' => __('crud.plural.client_asset'),
+            'type' => 'repeatable',
+            'new_item_label' => 'اضافة جهاز',
+            'fields' =>   array_merge( $this->crud->getFields()['assets']['fields'],[[
+                'name'            => 'status',
+                'label'           => "الحالة",
+                'type'            => 'select_from_array',
+                'options'         => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
+                'allows_null'     => false,
+
+            ]]),
+
+
+        ]);
 
     }
 

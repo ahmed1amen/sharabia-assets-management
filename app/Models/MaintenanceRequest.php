@@ -35,9 +35,14 @@ class MaintenanceRequest extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function openGoogle($crud = false)
+    public function printSticker($crud = false)
     {
-        return '<button  class="btn btn-sm btn-link"   onclick="printPosinvoice(' .$this->id .')" data-toggle="tooltip" title="Reqest Assets"><i class="fa fa-print"></i>  طباعة الاستيكرز  </button  >';
+        return '<button  class="btn btn-sm btn-link"   onclick="printSticker(' .$this->id .')" data-toggle="tooltip" title=" طباعة الاستيكرز "><i class="fa fa-print"></i>  طباعة الاستيكرز  </button  >';
+    }
+
+    public function PrintPos($crud = false)
+    {
+        return '<button  class="btn btn-sm btn-link"   onclick="printPosinvoice(' .$this->id .')" data-toggle="tooltip" title=" طباعة الاستيكرز "><i class="fa fa-print"></i>  طباعة الايصال  </button  >';
     }
     public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

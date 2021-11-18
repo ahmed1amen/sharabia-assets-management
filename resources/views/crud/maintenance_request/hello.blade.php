@@ -431,7 +431,7 @@
     <title></title>
 </head>
 
-<body>
+<body onload="window.print()">
 <header>
     <div id="logo" class="media" data-src="logo.png" src="./logo.png"></div>
 

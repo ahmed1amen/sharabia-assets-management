@@ -55,10 +55,10 @@ class ClientAsset extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function getDeliveryDateAttribute($date)
-    {
-        return Carbon::parse($date)->format('l,d/m/Y');
-    }
+//    public function getDeliveryDateAttribute($date)
+//    {
+//        return Carbon::parse($date)->format('l,d/m/Y');
+//    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

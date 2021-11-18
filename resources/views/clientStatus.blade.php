@@ -187,13 +187,14 @@ p{
                    </div>
                </div>
 
-           </div>
+           </div>       @if ($asset->status >=2)
            <div class="card-footer">
-               @if ($asset->status >=2)
+
                <h5 class=""> التكلفة : <span class="text-danger font-weight-bolder"> {{$asset->cost}} EGP</span></h5>
-               @endif
+
 
            </div>
+           @endif
        </div>
 
         @endforeach
