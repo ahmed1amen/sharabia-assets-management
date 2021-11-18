@@ -30,7 +30,7 @@
           @yield('before_content_widgets')
 
           @yield('content')
-          
+
           @yield('after_content_widgets')
 
         </div>
@@ -50,5 +50,35 @@
 
   @yield('after_scripts')
   @stack('after_scripts')
+
+
+  <script>
+
+      function printPosinvoice(id){
+
+          $('<iframe  id="printpos" name="printpos" >')
+              .hide()                               // make it invisible
+              .attr("src", '{{ url('admin/maintenance-request')}}/' +id+'/show') // point the iframe to the page you want to print
+              .appendTo("body");
+          var newWin = window.frames["printpos"];
+
+          newWin.document.close();
+
+      }
+
+
+
+      function printSticker(id){
+
+          $('<iframe  id="printf" name="printf" >')
+              .hide()                               // make it invisible
+              .attr("src",  '{{ url('admin/maintenance-request')}}/'+id+'/all') // point the iframe to the page you want to print
+              .appendTo("body");
+          var newWin = window.frames["printf"];
+
+          newWin.document.close();
+
+      }
+  </script>
 </body>
 </html>
