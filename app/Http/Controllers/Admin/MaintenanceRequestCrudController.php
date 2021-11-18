@@ -105,15 +105,13 @@ class MaintenanceRequestCrudController extends CrudController
         $this->crud->addSaveAction([
             'name' => 'save_action_one',
             'redirect' => function ($crud, $request, $itemId) {
-                return $crud->route;
+                return route('maintenance-request.show', $itemId). "?withsticker";
             },
-            'button_text' => 'حفظ وطباعة' ,
+            'button_text' => 'حفظ وطباعة',
             'visible' => function ($crud) {
                 return true;
             },
-            'referrer_url' => function ($crud, $request, $itemId) {
-                return $crud->route;
-            },
+
             'order' => 0,
         ]);
 
@@ -147,7 +145,9 @@ class MaintenanceRequestCrudController extends CrudController
                 [
                     'name' => 'name',
                     'type' => 'select_from_array',
-                    'options'    => Asset::query()->select('name')->pluck('name')->flatMap(function ($val){return[$val=>$val];}),
+                    'options' => Asset::query()->select('name')->pluck('name')->flatMap(function ($val) {
+                        return [$val => $val];
+                    }),
                     'label' => __('crud.models.ClientAsset.name'),
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
@@ -210,12 +210,12 @@ class MaintenanceRequestCrudController extends CrudController
             'label' => __('crud.plural.client_asset'),
             'type' => 'repeatable',
             'new_item_label' => 'اضافة جهاز',
-            'fields' =>   array_merge( $this->crud->getFields()['assets']['fields'],[[
-                'name'            => 'status',
-                'label'           => "الحالة",
-                'type'            => 'select_from_array',
-                'options'         => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
-                'allows_null'     => false,
+            'fields' => array_merge($this->crud->getFields()['assets']['fields'], [[
+                'name' => 'status',
+                'label' => "الحالة",
+                'type' => 'select_from_array',
+                'options' => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
+                'allows_null' => false,
 
             ]]),
 
