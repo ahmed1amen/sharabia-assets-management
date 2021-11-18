@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'ayman@admin.com',
             'password' => bcrypt('123456'),
         ]);
-        \App\Models\Employee::factory(20)->create();
-        \App\Models\Client::factory(10)->create();
+        \App\Models\Employee::factory(1)->create();
+        \App\Models\Client::factory(1)->create();
 
  MaintenanceRequest::create([
 
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             [
 
                 "name" => "Playstation5",
-                "employee_id" => 2,
+                "employee_id" => 1,
                 "maintenance_request_id" => 1,
                 "issue" => "Software",
                 "status" => 2,
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "name" => "Joystick",
-                "employee_id" => 3,
+                "employee_id" => 1,
                 "maintenance_request_id" => 1,
                 "issue" => "Broken",
                 "status" => 3,
