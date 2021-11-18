@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Client::factory(1)->create();
 
  MaintenanceRequest::create([
-
     "client_id" => 1,
     "total" => "450.00",
     "total_paid" => "50.00",
