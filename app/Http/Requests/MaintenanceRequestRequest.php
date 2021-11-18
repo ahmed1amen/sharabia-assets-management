@@ -37,11 +37,12 @@ class MaintenanceRequestRequest extends FormRequest
      */
     public function rules()
     {
+     //   dd(request()->all());
         return [
             'assets.*.name' => 'required',
             'assets.*.issue' => 'required',
             'assets.*.cost' => 'required|numeric',
-            'assets.*.delivery_date' => 'required|date',
+            'assets.*.delivery_date' => 'required|datetime',
             'assets.*.employee_id' => 'required',
         ];
     }

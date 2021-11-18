@@ -206,6 +206,24 @@ class MaintenanceRequestCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+
+//        $this->crud->modifyField('assets', [
+//            'name' => 'assets',
+//            'label' => __('crud.plural.client_asset'),
+//            'type' => 'repeatable',
+//            'new_item_label' => 'اضافة جهاز',
+//            'fields' =>   array_merge( $this->crud->getFields()['assets']['fields'],[[
+//                'name'            => 'status',
+//                'label'           => "الحالة",
+//                'type'            => 'select_from_array',
+//                'options'         => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
+//                'allows_null'     => false,
+//
+//            ]]),
+//
+//
+//        ]);
+
     }
 
     /**
@@ -310,7 +328,7 @@ class MaintenanceRequestCrudController extends CrudController
     {
 
         $maintenanceRequest = MaintenanceRequest::with(['assets', 'client'])->findOrFail($id);
-        return view('crud.maintenance_request.requestAssets' ,['maintenanceRequest'=>$maintenanceRequest]);
+        return view('crud.maintenance_request.requestAssets', ['maintenanceRequest' => $maintenanceRequest]);
 
     }
 }

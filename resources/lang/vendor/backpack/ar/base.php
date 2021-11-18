@@ -32,7 +32,7 @@ return [
     'change_password'        => 'تحديث كلمة المرور',
     'unauthorized'           => 'غير مصرح',
     'dashboard'              => 'الصفحة الرئيسية',
-    'handcrafted_by'         => 'صنع بيد',
+    'handcrafted_by'         => 'Handcrafted by',
     'powered_by'             => 'طُـور بواسطة',
     'my_account'             => 'حسابي',
     'update_account_info'    => 'تحديث معلومات الحساب',
