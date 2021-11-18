@@ -9,6 +9,7 @@ return [
         'client' => 'عميل',
         'client_asset' => 'جهاز',
         'setting' => 'اعداد',
+        'asset' => 'نوع جهاز',
     ],
     'plural' => [
         'maintenance_request' => 'طلبات الصيانة',
@@ -16,6 +17,7 @@ return [
         'client' => 'العملاء',
         'client_asset' => 'الأجهزه',
         'setting' => 'الأعدادات',
+        'asset' => 'انواع الأجهزه',
     ],
 
 

@@ -5,3 +5,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('maintenance-request') }}'><i class='nav-icon fa fa-cogs'></i>{{ trans('sidebar.maintenance_requests') }} </a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('client-asset') }}'><i class='nav-icon  fa fa-wrench'></i> {{ trans('sidebar.client_assets') }} </a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cogs'></i> {{ trans('sidebar.settings') }}</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('asset') }}'><i class='nav-icon fa fa-ruble-sign'></i> {{ trans('crud.singular.asset') }}</a></li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MaintenanceRequestRequest;
+use App\Models\Asset;
 use App\Models\ClientAsset;
 use App\Models\MaintenanceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -147,10 +148,10 @@ class MaintenanceRequestCrudController extends CrudController
             'type' => 'repeatable',
             'new_item_label' => 'اضافة جهاز', // c
             'fields' => [
-
                 [
                     'name' => 'name',
-                    'type' => 'text',
+                    'type' => 'select_from_array',
+                    'options'    => Asset::query()->select('name')->pluck('name')->flatMap(function ($val){return[$val=>$val];}),
                     'label' => __('crud.models.ClientAsset.name'),
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
