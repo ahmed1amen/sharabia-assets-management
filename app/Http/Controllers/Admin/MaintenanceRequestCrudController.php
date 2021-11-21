@@ -40,7 +40,7 @@ class MaintenanceRequestCrudController extends CrudController
         $this->crud->addButtonFromModelFunction('line', 'printSticker', 'printSticker', 'beginning');
         $this->crud->addButtonFromModelFunction('line', 'PrintPos', 'PrintPos', 'beginning');
         $this->crud->with(['assets', 'client']);
-        $this->crud->setShowView('crud.maintenance_request.hello');
+        $this->crud->setShowView('crud.maintenance_request.posInvoice');
 
     }
 

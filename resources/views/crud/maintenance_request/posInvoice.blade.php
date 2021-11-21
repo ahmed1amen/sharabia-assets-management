@@ -73,7 +73,7 @@
         .items thead tr th:first-child,
         .items tbody tr td:first-child {
 
-            word-break: break-all;
+
             text-align: center;
         }
 
@@ -170,7 +170,7 @@
 <div class="pos-header">
     <img class="logo" width="600" height="400"
          src="https://shrabiastore.com/storage/media/4GDClcyjtTFP0nDYSa584KjMQRxwo8YNmLnCtK9W.png" alt="">
-    {!!  DNS2D::getBarcodeSVG(route('client.status',\Vinkla\Hashids\Facades\Hashids::encode($crud->entry->id)), 'QRCODE'  ,5,5)!!}
+    {!!  DNS2D::getBarcodeSVG(route('client.status',\Vinkla\Hashids\Facades\Hashids::encode($crud->entry->id)), 'QRCODE'  ,4,4)!!}
     <br>
 
     <strong>Scan الكود علشان تعرف حالة جهازك</strong>
@@ -184,7 +184,7 @@
 
 
 <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 15px"><strong> اسم
-        العميل:{{$crud->entry->client->name}} </strong></p>
+        العميل :  {{$crud->entry->client->name}} </strong></p>
 <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 15px"><strong>
         {{$crud->entry->created_at}} </strong></p>
 
@@ -201,14 +201,12 @@
 
     <tbody>
     @foreach($crud->entry->assets as $asset)
-
         <tr>
             <td class="td-id">{{$asset->id}}</td>
             <td>{{$asset->name}}</td>
             <td>{{$asset->issue}}</td>
         </tr>
     @endforeach
-
     <tr>
         {{--        <th colspan="2" class="total text">الأجمالي</th>--}}
         {{--        <th class="total price">12132.00</th>--}}
@@ -222,22 +220,18 @@
 </section>
 <footer style="text-align:center">
     <p>
-        <strong> ممر 3، غيط العدة، عابدين، محافظة القاهرة</strong>
+        <strong>5 ش الترجمان, متفرع من ش محمد على  </strong>
         <br>
-        <strong> 023964445 - 01148366669 - 01224819244</strong>
+        <strong> 023964445 - 0223916969 - 01224819244</strong>
         <br>
-
-
         <span class="center-align">
-               {!!  DNS2D::getBarcodeSVG('99999999999999999999999', 'QRCODE'  ,3,3)!!}
+               {!!  DNS2D::getBarcodeSVG(strval($crud->entry->id), 'QRCODE'  ,3,3)!!}
         </span>
         <br>
         <span style="border-top: 1px solid; ">
-
-Technology Partner Refilex - www.Refilex.com
+    Technology Partner Refilex - www.Refilex.com
        </span>
     </p>
-
 </footer>
 </body>
 
