@@ -163,19 +163,19 @@ class MaintenanceRequestCrudController extends CrudController
                     'label' => __('crud.models.ClientAsset.cost'),
                     'default' => '0',
                     'attributes' => ["step" => "any", 'min' => 0],
-                    'wrapper' => ['class' => 'form-group col-md-6'],
+                    'wrapper' => ['class' => 'form-group col-md-12'],
                 ],
-                [   // date_picker
-                    'name' => 'delivery_date',
-                    'type' => 'date_picker',
-                    'label' => __('crud.models.ClientAsset.delivery_date'),
-                    'date_picker_options' => [
-                        'todayBtn' => 'linked',
-                        'format' => 'dd-mm-yyyy',
-                        'language' => 'en'
-                    ],
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                ],
+//                [   // date_picker
+//                    'name' => 'delivery_date',
+//                    'type' => 'date_picker',
+//                    'label' => __('crud.models.ClientAsset.delivery_date'),
+//                    'date_picker_options' => [
+//                        'todayBtn' => 'linked',
+//                        'format' => 'dd-mm-yyyy',
+//                        'language' => 'en'
+//                    ],
+//                    'wrapper' => ['class' => 'form-group col-md-6'],
+//                ],
                 [
                     'label' => __('crud.models.Employee.name'),
                     'name' => 'employee_id',
@@ -214,7 +214,7 @@ class MaintenanceRequestCrudController extends CrudController
                 'name' => 'status',
                 'label' => "الحالة",
                 'type' => 'select_from_array',
-                'options' => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'جاهز للإستلام'],
+                'options' => [0 => 'تم الإستلام', 1 => 'قيدالصيانة', 2 => 'غير قابل للصيانة',3 => 'جاهز للإستلام'  ],
                 'allows_null' => false,
 
             ]]),
@@ -326,7 +326,7 @@ class MaintenanceRequestCrudController extends CrudController
     {
 
         $maintenanceRequest = MaintenanceRequest::with(['assets', 'client'])->findOrFail($id);
-        return view('crud.maintenance_request.requestAssets', ['maintenanceRequest' => $maintenanceRequest]);
+        return view('crud.maintenance_request.assetsSticker', ['maintenanceRequest' => $maintenanceRequest]);
 
     }
 }

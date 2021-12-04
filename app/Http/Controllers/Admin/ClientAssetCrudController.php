@@ -110,18 +110,18 @@ class ClientAssetCrudController extends CrudController
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
-    {
-        $this->crud->hasAccessOrFail('show');
-
-        // get entry ID from Request (makes sure its the last ID for nested resources)
-        $id = $this->crud->getCurrentEntryId() ?? $id;
-        $setFromDb = $this->crud->get('show.setFromDb');
-
-        // get the info for that entry
-        $this->data['entry'] = $this->crud->getEntry($id);
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.preview').' '.$this->crud->entity_name;
-        return view('crud.maintenance_request.requestAssets', $this->data);
-    }
+//    public function show($id)
+//    {
+//        $this->crud->hasAccessOrFail('show');
+//
+//        // get entry ID from Request (makes sure its the last ID for nested resources)
+//        $id = $this->crud->getCurrentEntryId() ?? $id;
+//        $setFromDb = $this->crud->get('show.setFromDb');
+//
+//        // get the info for that entry
+//        $this->data['entry'] = $this->crud->getEntry($id);
+//        $this->data['crud'] = $this->crud;
+//        $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.preview').' '.$this->crud->entity_name;
+//        return view('crud.maintenance_request.requestAssets', $this->data);
+//    }
 }

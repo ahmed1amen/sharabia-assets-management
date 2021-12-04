@@ -215,7 +215,7 @@
                 <div class="item-info">
                     <p class="m-0 p-0 mt-1 mx-1 font-weight-bold"
                        style=" direction: ltr; text-align: left; font-weight: 800; font-size: 6px; line-height: 0">
-                        {{ '#' .$maintenanceRequest->id . ' in '.$asset->id }}</p>
+                        {{ '#'. $asset->id.  ' in '. $maintenanceRequest->id}}</p>
 
 
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
@@ -223,7 +223,7 @@
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
                              تاريخ الإستلام:{{$asset->delivery_date}} </strong></p>
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
-                              الموظف المسؤول:{{$asset->employee->name}} </strong></p>
+                              الموظف المسؤول:{{$asset->employee->name ?? '-'}} </strong></p>
 
                 </div>
             </div>

@@ -25,7 +25,7 @@ return [
         'created_at' => 'تاريخ الأضافة',
         'ClientAsset' => [
             'id' => 'كود',
-            'name' => 'اسم الجهاز',
+            'name' => 'نوع الجهاز',
             'issue' => 'العطل',
             'amount_due' => 'المتبقي',
             'delivery_date' => 'تاريخ التسليم',
