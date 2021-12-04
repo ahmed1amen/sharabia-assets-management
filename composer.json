@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "milon/barcode": "^8.0",
+        "spatie/laravel-activitylog": "^4.3",
         "vinkla/hashids": "^9.1"
     },
     "require-dev": {

@@ -18,6 +18,9 @@ Route::get('/', function () {
 
  return redirect('/admin/dashboard');
 });
+Route::get('/client' , function () {
+    return view('clientAssetsLog');
+});
 
 Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientAssetsInvoice'])->name('client.status');
 Route::get('/admin/maintenance-request/{id}/all', [MaintenanceRequestCrudController::class,'showClientAssetsSticker'])->name('client.assets.stickers');

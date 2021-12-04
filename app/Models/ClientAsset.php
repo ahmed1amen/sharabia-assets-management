@@ -5,11 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ClientAsset extends Model
 {
     use CrudTrait;
-
+    use LogsActivity;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -64,4 +66,10 @@ class ClientAsset extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'text']);
+
+    }
 }

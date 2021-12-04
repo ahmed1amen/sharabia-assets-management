@@ -14,11 +14,11 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ClientAssetCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
- // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
+        // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+        //    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+        //    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+            use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -90,6 +90,12 @@ class ClientAssetCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+    }
+
+
+    protected function fetchClient()
+    {
+        return $this->fetch(\App\Models\Client::class);
     }
 
     /**
