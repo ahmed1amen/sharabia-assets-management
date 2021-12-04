@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ClientAssetRequest;
+use App\Models\ClientAsset;
+use App\Models\Employee;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use  \App\Models\Activity;
 
 /**
  * Class ClientAssetCrudController
@@ -14,11 +17,13 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ClientAssetCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-        // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-        //    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-        //    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-            use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+    // use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    //    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    //    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -45,7 +50,6 @@ class ClientAssetCrudController extends CrudController
         CRUD::column('id');
         CRUD::column('name');
         CRUD::column('issue');
-        CRUD::column('delivery_date');
         CRUD::column('employee_id');
 
         /**
@@ -82,7 +86,7 @@ class ClientAssetCrudController extends CrudController
                 'name' => 'issue',
             ]);
 
-        CRUD::field('delivery_date');
+//        CRUD::field('delivery_date');
 
 
         /**
@@ -95,7 +99,59 @@ class ClientAssetCrudController extends CrudController
 
     protected function fetchClient()
     {
-        return $this->fetch(\App\Models\Client::class);
+        $asset_id = request()->input('asset_id');
+
+        $client_asset = ClientAsset::query()->find($asset_id);
+        if ($client_asset)
+            return ['asset' => $client_asset, 'history' => Activity::with('causer')->forSubject($client_asset)->get()];
+        else
+            return response('No DataFound!', 404);
+    }
+
+    public function updateStatus()
+    {
+        $asset_id = request()->input('asset_id');
+        $employee_id = request()->input('employee_id');
+        $status = request()->input('status');
+
+        $client_asset = ClientAsset::query()->find($asset_id);
+        $employee = Employee::query()->find($employee_id);
+        $status_text = '';
+
+        if ($client_asset && $employee) {
+            $client_asset->update([
+                'status' => $status,
+                'employee_id' => $employee_id
+
+            ]);
+
+            switch ($status) {
+                case 0:
+                    $status_text = 'تم الإستلام';
+
+                    break;
+                case 1:
+                    $status_text = 'قيد الصيانة';
+
+                    break;
+                case 2:
+                    $status_text = 'غير قابل للصيانة';
+                    break;
+                case 3:
+                    $status_text = 'تم التسليم';
+                    break;
+            }
+
+            activity()
+                ->causedBy($employee)
+                ->performedOn($client_asset)
+                ->log($status_text);
+
+            return ['Updated'];
+
+        } else
+            return response('No DataFound!', 404);
+
     }
 
     /**
@@ -113,7 +169,7 @@ class ClientAssetCrudController extends CrudController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
 //    public function show($id)

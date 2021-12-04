@@ -11,7 +11,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class ClientAsset extends Model
 {
     use CrudTrait;
-    use LogsActivity;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -25,7 +24,9 @@ class ClientAsset extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-
+    protected $attributes = [
+        'delivery_date' => '2021-01-01 00:00:00',
+    ];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -66,10 +67,8 @@ class ClientAsset extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['name', 'text']);
 
-    }
+
+
+
 }
