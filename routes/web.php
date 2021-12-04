@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ClientAssetCrudController;
 use App\Http\Controllers\Admin\MaintenanceRequestCrudController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
  return redirect('/admin/dashboard');
 });
+Route::view('/assets-history','clientAssetsLog')->name('assets.history');
+
+Route::post('/clientStatus/update', [ClientAssetCrudController::class,'updateStatus'])->name('update.client.status');
+
 
 Route::get('/clientStatus/{id}', [MaintenanceRequestCrudController::class,'showClientAssetsInvoice'])->name('client.status');
 Route::get('/admin/maintenance-request/{id}/all', [MaintenanceRequestCrudController::class,'showClientAssetsSticker'])->name('client.assets.stickers');
