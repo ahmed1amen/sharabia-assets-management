@@ -7,3 +7,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cogs'></i> {{ trans('sidebar.settings') }}</a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('asset') }}'><i class='nav-icon fa fa-ruble-sign'></i> {{ trans('crud.singular.asset') }}</a></li>
+<li class='nav-item'><a class='nav-link' href='#'><i class='nav-icon fa fa-ruble-sign'></i> التقارير</a></li>
