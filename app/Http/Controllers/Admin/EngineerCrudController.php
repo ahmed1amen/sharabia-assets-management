@@ -84,6 +84,13 @@ class EngineerCrudController extends CrudController
                 'name' => 'description', // the column that contains the ID of that connected entity;
             ]);
 
+     $this->crud->addField(
+            [
+                'name'  => 'type',
+                'type'  => 'hidden',
+                'value' => '1',
+            ]);
+
 
 
 
