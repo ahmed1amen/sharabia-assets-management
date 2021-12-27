@@ -29,6 +29,7 @@ class EngineerCrudController extends CrudController
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/engineer');
         CRUD::setEntityNameStrings(__('crud.singular.engineer'), __('crud.plural.engineer'));
+        $this->crud->addClause('where', 'type', '=', 1);
     }
 
     /**

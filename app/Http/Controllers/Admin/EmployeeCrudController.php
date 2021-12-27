@@ -29,6 +29,7 @@ class EmployeeCrudController extends CrudController
         CRUD::setModel(\App\Models\Employee::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
         CRUD::setEntityNameStrings(__('crud.singular.employee'), __('crud.plural.employee'));
+        $this->crud->addClause('where', 'type', '=', 0);
     }
 
     /**
