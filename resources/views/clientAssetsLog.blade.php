@@ -28,9 +28,9 @@
                         <h4 class=" ">تحديث حالة الجهاز</h4>
                     </div>
                     <div class="card-body">
-                        <label>اختر الموظف
+                        <label>اختر المهندس
                             <select class="form-control" v-model="selected_emp" name="name">
-                                <option disabled :selected="true">اختر الموظف</option>
+                                <option disabled :selected="true">اختر المهندس</option>
                                 <option v-for="employee in employees" v-bind:value="employee.id">@{{ employee.name }}
                                 </option>
                             </select>
@@ -90,7 +90,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">نوع الحركة</th>
-                                <th scope="col">الموظف المسؤول</th>
+                                <th scope="col">المهندس المسؤول</th>
                                 <th scope="col">تاريخ الحركة</th>
                             </tr>
                             </thead>
@@ -154,7 +154,7 @@
                 asset: false,
                 assetHistory: [],
                 employees: @json(\App\Models\Employee::query()->select(['id','name'])->where('type',1)->get()->toArray()),
-                selected_emp: "اختر الموظف"
+                selected_emp: "اختر المهندس"
 
             },
             computed: {
@@ -183,11 +183,11 @@
             },
             methods: {
                 changeStatus: function (event) {
-                    if (this.selected_emp==='اختر الموظف')
+                    if (this.selected_emp==='اختر المهندس')
                     {
                         new Noty({
                             type: "error",
-                            text: 'برجاء تحديد الموظف',
+                            text: 'برجاء تحديد المهندس',
                         }).show();
                         return;
                     }
