@@ -153,7 +153,7 @@
             data: {
                 asset: false,
                 assetHistory: [],
-                employees: @json(\App\Models\Employee::query()->select(['id','name'])->get()->toArray()),
+                employees: @json(\App\Models\Employee::query()->select(['id','name'])->where('type',1)->get()->toArray()),
                 selected_emp: "اختر الموظف"
 
             },

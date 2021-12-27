@@ -7,11 +7,11 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class EmployeeCrudController
+ * Class EngineerCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class EmployeeCrudController extends CrudController
+class EngineerCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -27,9 +27,9 @@ class EmployeeCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Employee::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
-        CRUD::setEntityNameStrings(__('crud.singular.employee'), __('crud.plural.employee'));
-        $this->crud->addClause('where', 'type', '=', 0);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/engineer');
+        CRUD::setEntityNameStrings(__('crud.singular.engineer'), __('crud.plural.engineer'));
+        $this->crud->addClause('where', 'type', '=', 1);
     }
 
     /**
@@ -40,10 +40,10 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->column('id')->label(__('crud.models.Employee.id'));
-        $this->crud->column('name')->label(__('crud.models.Employee.name'));
-        $this->crud->column('position')->label(__('crud.models.Employee.position'));
-        $this->crud->column('description')->label(__('crud.models.Employee.description'));
+        $this->crud->column('id')->label(__('crud.models.Engineer.id'));
+        $this->crud->column('name')->label(__('crud.models.Engineer.name'));
+        $this->crud->column('position')->label(__('crud.models.Engineer.position'));
+        $this->crud->column('description')->label(__('crud.models.Engineer.description'));
         $this->crud->column('created_at')->label(__('crud.models.created_at'));
 
         /**
@@ -65,13 +65,13 @@ class EmployeeCrudController extends CrudController
 
         $this->crud->addField(
             [
-                'label' => __('crud.models.Employee.name'), // Table column heading
+                'label' => __('crud.models.Engineer.name'), // Table column heading
                 'type' => "text",
                 'name' => 'name', // the column that contains the ID of that connected entity;
             ]);
         $this->crud->addField(
         [
-                'label' => __('crud.models.Employee.position'), // Table column heading
+                'label' => __('crud.models.Engineer.position'), // Table column heading
                 'type' => "text",
                 'name' => 'position', // the column that contains the ID of that connected entity;
             ]);
@@ -79,7 +79,7 @@ class EmployeeCrudController extends CrudController
 
         $this->crud->addField(
             [
-                'label' => __('crud.models.Employee.description'), // Table column heading
+                'label' => __('crud.models.Engineer.description'), // Table column heading
                 'type' => "textarea",
                 'name' => 'description', // the column that contains the ID of that connected entity;
             ]);
