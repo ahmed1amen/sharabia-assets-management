@@ -221,7 +221,7 @@
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong> اسم
                             العميل:{{$maintenanceRequest->client->name}} </strong></p>
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
-                             تاريخ الإستلام:{{$asset->delivery_date}} </strong></p>
+                             تاريخ الإستلام:{{$asset->created_at}} </strong></p>
                     <p class="m-0 p-0 mt-0 mx-1 font-weight-bold" style="font-size: 7px"><strong>
                               الموظف المسؤول:{{$asset->employee->name ?? '-'}} </strong></p>
 

@@ -113,6 +113,7 @@ class ClientAssetCrudController extends CrudController
         $asset_id = request()->input('asset_id');
         $employee_id = request()->input('employee_id');
         $status = request()->input('status');
+        $cost = request()->input('cost');
 
         $client_asset = ClientAsset::query()->find($asset_id);
         $employee = Employee::query()->find($employee_id);
@@ -121,7 +122,8 @@ class ClientAssetCrudController extends CrudController
         if ($client_asset && $employee) {
             $client_asset->update([
                 'status' => $status,
-                'employee_id' => $employee_id
+                'employee_id' => $employee_id,
+                'cost' => $cost
 
             ]);
 

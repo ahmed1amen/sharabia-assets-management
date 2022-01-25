@@ -35,14 +35,17 @@
                                 </option>
                             </select>
                         </label>
-                        <button v-on:click="changeStatus" v-bind:data-id="1" name="status_1" class="mx-5 btn btn-primary">
+                        <button v-on:click="changeStatus" v-bind:data-id="1" name="status_1"
+                                class="mx-5 btn btn-primary">
                             قيد الصيانة
                             <i class="active fa fa-wrench"></i></button>
 
-                        <button v-on:click="changeStatus" v-bind:data-id="2" name="status_2" class="mx-5 btn btn-danger">غير قابل للصيانة
+                        <button v-on:click="changeStatus" v-bind:data-id="2" name="status_2"
+                                class="mx-5 btn btn-danger">غير قابل للصيانة
                             <i class="active fa fa-times-circle"></i></button>
 
-                        <button v-on:click="changeStatus"  v-bind:data-id="3" name="status_3" class="mx-5 btn btn-success">تسليم
+                        <button v-on:click="changeStatus" v-bind:data-id="3" name="status_3"
+                                class="mx-5 btn btn-success">تسليم
                             <i class="active fa fa-check-circle"></i></button>
 
                     </div>
@@ -71,7 +74,7 @@
                             <tr class='text-center' role='row'>
                                 <td>حالة الجهاز:</td>
 
-                                <td class="bg-dark">  @{{ getAssetStatus }} </td>
+                                <td class="bg-dark"> @{{ getAssetStatus }}</td>
                             </tr>
 
 
@@ -183,8 +186,7 @@
             },
             methods: {
                 changeStatus: function (event) {
-                    if (this.selected_emp==='اختر المهندس')
-                    {
+                    if (this.selected_emp === 'اختر المهندس') {
                         new Noty({
                             type: "error",
                             text: 'برجاء تحديد المهندس',
@@ -193,47 +195,65 @@
                     }
 
                     let self = this
-                    axios.post("{{route('update.client.status')}}",
-                        {
-                            'status': event.target.dataset.id,
-                            'asset_id': this.asset.id,
-                            'employee_id': this.selected_emp
-                        }
 
-                    ).then(response => {
-                        new Noty({
-                            type: "success",
-                            text: 'تم تحديث البيانات',
-                        }).show();
-
-                        axios.post("{{route('client-asset.fetchClient')}}", {'asset_id':  this.asset.id})
-                            .then(response => {
-                                self.assetHistory = response.data.history
-                                self.asset = response.data.asset
-                            })
-                            .catch(err => {
-                                console.log(err)
-                                self.assetHistory = [];
-                                self.asset = false;
-                                new Noty({
-                                    type: "error",
-                                    text: 'لا توجد بيانات',
-                                }).show();
-                            })
-
+                    swal({
+                        title: "تأكيد",
+                        text: "برجاء ادخال تكلفة الصيانة",
+                        icon: "warning",
+                        buttons: true,
+                        content: "input",
+                        dangerMode: true,
                     })
-                        .catch(err => {
-                            console.log(err)
-                            new Noty({
-                                type: "error",
-                                text: 'لا توجد بيانات',
-                            }).show();
-                        })
+                        .then((willUpdate) => {
+                            if (willUpdate) {
+
+                                if (isNaN(willUpdate)){
+                                    new Noty({
+                                        type: "error",
+                                        text: 'برجاء ادخال المبلغ بشكل صحيح',
+                                    }).show();
+                                    return;
+                                }
+                                axios.post("{{route('update.client.status')}}",
+                                    {
+                                        'status': event.target.dataset.id,
+                                        'asset_id': this.asset.id,
+                                        'employee_id': this.selected_emp,
+                                        'cost': willUpdate
+                                    }
+                                ).then(response => {
+                                    new Noty({
+                                        type: "success",
+                                        text: 'تم تحديث البيانات',
+                                    }).show();
+
+                                    axios.post("{{route('client-asset.fetchClient')}}", {'asset_id': this.asset.id})
+                                        .then(response => {
+                                            self.assetHistory = response.data.history
+                                            self.asset = response.data.asset
+                                        })
+                                        .catch(err => {
+                                            console.log(err)
+                                            self.assetHistory = [];
+                                            self.asset = false;
+                                            new Noty({
+                                                type: "error",
+                                                text: 'لا توجد بيانات',
+                                            }).show();
+                                        })
+
+                                })
+                                    .catch(err => {
+                                        console.log(err)
+                                        new Noty({
+                                            type: "error",
+                                            text: 'لا توجد بيانات',
+                                        }).show();
+                                    })
 
 
-
-
-
+                            }
+                        });
 
 
                 }
