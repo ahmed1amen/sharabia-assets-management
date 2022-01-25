@@ -198,7 +198,7 @@
 
                     swal({
                         title: "تأكيد",
-                        text: "برجاء ادخال المبلع",
+                        text: "برجاء ادخال تكلفة الصيانة",
                         icon: "warning",
                         buttons: true,
                         content: "input",
@@ -207,44 +207,53 @@
                         .then((willUpdate) => {
                             if (willUpdate) {
 
+                                if (isNaN(willUpdate)){
+                                    new Noty({
+                                        type: "error",
+                                        text: 'برجاء ادخال المبلغ بشكل صحيح',
+                                    }).show();
+                                    return;
+                                }
+                                axios.post("{{route('update.client.status')}}",
+                                    {
+                                        'status': event.target.dataset.id,
+                                        'asset_id': this.asset.id,
+                                        'employee_id': this.selected_emp,
+                                        'cost': willUpdate
+                                    }
+                                ).then(response => {
+                                    new Noty({
+                                        type: "success",
+                                        text: 'تم تحديث البيانات',
+                                    }).show();
+
+                                    axios.post("{{route('client-asset.fetchClient')}}", {'asset_id': this.asset.id})
+                                        .then(response => {
+                                            self.assetHistory = response.data.history
+                                            self.asset = response.data.asset
+                                        })
+                                        .catch(err => {
+                                            console.log(err)
+                                            self.assetHistory = [];
+                                            self.asset = false;
+                                            new Noty({
+                                                type: "error",
+                                                text: 'لا توجد بيانات',
+                                            }).show();
+                                        })
+
+                                })
+                                    .catch(err => {
+                                        console.log(err)
+                                        new Noty({
+                                            type: "error",
+                                            text: 'لا توجد بيانات',
+                                        }).show();
+                                    })
+
+
                             }
                         });
-
-                    axios.post("{{route('update.client.status')}}",
-                        {
-                            'status': event.target.dataset.id,
-                            'asset_id': this.asset.id,
-                            //'employee_id': this.selected_emp
-                        }
-                    ).then(response => {
-                        new Noty({
-                            type: "success",
-                            text: 'تم تحديث البيانات',
-                        }).show();
-
-                        axios.post("{{route('client-asset.fetchClient')}}", {'asset_id': this.asset.id})
-                            .then(response => {
-                                self.assetHistory = response.data.history
-                                self.asset = response.data.asset
-                            })
-                            .catch(err => {
-                                console.log(err)
-                                self.assetHistory = [];
-                                self.asset = false;
-                                new Noty({
-                                    type: "error",
-                                    text: 'لا توجد بيانات',
-                                }).show();
-                            })
-
-                    })
-                        .catch(err => {
-                            console.log(err)
-                            new Noty({
-                                type: "error",
-                                text: 'لا توجد بيانات',
-                            }).show();
-                        })
 
 
                 }
